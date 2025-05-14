@@ -10,12 +10,15 @@ from torch.utils.data import Dataset, random_split
 import numpy as np
 from preprocess_spec import DermatologyPreprocessor
 
+
 IMAGE_SIZE = 512  # или ваш target_size
 
-# Определяем трансформации для train/val
 train_transforms = A.Compose([
+    # 1. Ресайз с сохранением пропорций + обрезка по маске
     A.SmallestMaxSize(max_size=IMAGE_SIZE, p=1.0),
     A.RandomCrop(height=IMAGE_SIZE, width=IMAGE_SIZE, p=1.0),
+
+    # 2. Геометрические аугментации
     A.HorizontalFlip(p=0.5),
     A.VerticalFlip(p=0.5),
     A.ShiftScaleRotate(
@@ -25,12 +28,17 @@ train_transforms = A.Compose([
         border_mode=cv2.BORDER_CONSTANT,
         p=0.5
     ),
-    ToTensorV2(),
+
+    # 3. Нормализация (только для изображения)
+    #A.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+
+    ToTensorV2(),  # Конвертация в тензор
+
 ])
 
 val_transforms = A.Compose([
     A.Resize(height=IMAGE_SIZE, width=IMAGE_SIZE, p=1.0),
-    #A.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+    A.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
     ToTensorV2(),
 ])
 
@@ -47,28 +55,26 @@ class PHDataset(Dataset):
     def __len__(self):
         return len(self.images)
 
-    def __getitem__(self, idx, apply_transform=True):
-        # Загрузка изображения и маски
+    def __getitem__(self, idx):
         image = cv2.cvtColor(cv2.imread(self.images[idx]), cv2.COLOR_BGR2RGB)
         mask = cv2.imread(self.masks[idx], cv2.IMREAD_GRAYSCALE)
         mask = (mask == 255).astype(np.uint8)  # Преобразует 255 в 1, остальное в 0
+        # Преобразуем маску в тензор и проверяем значения
+        mask_tensor = torch.from_numpy(mask)
+        unique_values = torch.unique(mask_tensor)
+        assert torch.all(torch.isin(unique_values, torch.tensor([0, 1]))), "Маска содержит недопустимые значения!"
 
-        # Предобработка (если включена)
-        if self.preprocess:
+        if self.preprocess and self.preprocessor:
             image, _ = self.preprocessor(image)
-        else:
-            image = image.astype(np.float32) / 255.0
 
-        # Применение трансформаций
-        if self.transform and apply_transform:
+        if self.transform:
             augmented = self.transform(image=image, mask=mask)
             image, mask = augmented["image"], augmented["mask"]
-
         return image, mask
 
 
 def get_datasets(images_dir, masks_dir, val_ratio=0.2, test_ratio=0.1, seed=42, preprocess=False):
-    """Автоматическое разделение на train/val/test с поддержкой предобработки."""
+    """Автоматическое разделение на train/val/test."""
     full_dataset = PHDataset(images_dir, masks_dir, preprocess=preprocess)
 
     # Вычисляем размеры выборок
@@ -76,33 +82,29 @@ def get_datasets(images_dir, masks_dir, val_ratio=0.2, test_ratio=0.1, seed=42, 
     test_size = int(len(full_dataset) * test_ratio)
     train_size = len(full_dataset) - val_size - test_size
 
-    # Разделяем с фиксированным random seed
+    # Разделяем
     train_dataset, val_dataset, test_dataset = random_split(
         full_dataset,
         [train_size, val_size, test_size],
         generator=torch.Generator().manual_seed(seed)
     )
 
-    # Присваиваем трансформации через .dataset
+    # Применяем трансформы
     train_dataset.dataset.transform = train_transforms
     val_dataset.dataset.transform = val_transforms
     test_dataset.dataset.transform = val_transforms  # Для теста используем val_transforms
 
     return train_dataset, val_dataset, test_dataset
 
+'''
+dataset = PHDataset(images_dir="../PH2_Dataset/trainx", masks_dir="../PH2_Dataset/trainy", transform=train_transforms)
+img, mask = dataset[0]
+plt.imshow(img.permute(1, 2, 0))
+plt.show()
 
-# Пример использования для отладки
-if __name__ == "__main__":
-    # Тестовый прогон
-    train_ds, val_ds, test_ds = get_datasets(
-        images_dir="../PH2_Dataset/trainx",
-        masks_dir="../PH2_Dataset/trainy",
-        preprocess=True
-    )
-
-    print(f"Train size: {len(train_ds)}, Val size: {len(val_ds)}, Test size: {len(test_ds)}")
-
-    # Проверка первого элемента
-    img, mask = train_ds[0]
-    print(f"Image shape: {img.shape}, Mask shape: {mask.shape}")
-    print(f"Mask unique values: {torch.unique(mask)}")  # Должно быть [0, 1]
+dataset = PHDataset(images_dir="../PH2_Dataset/trainx", masks_dir="../PH2_Dataset/trainy", transform=train_transforms)
+img, mask = dataset[0]
+print("Unique mask values:", torch.unique(mask))  # Должно быть только 0 и 1
+plt.imshow(mask.squeeze(), cmap='gray')
+plt.show()
+'''

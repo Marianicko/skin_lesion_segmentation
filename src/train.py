@@ -14,6 +14,47 @@ from loss import CrossEntropyDiceLoss
 from accelerate import Accelerator
 from utils import seed_everything
 import matplotlib.pyplot as plt
+import numpy as np
+
+
+def visualize_sample(dataset, title="Sample", preprocess_flag=False, save_to_disk=False):
+    original_dataset = dataset.dataset if hasattr(dataset, 'dataset') else dataset
+    idx = dataset.indices[0] if hasattr(dataset, 'indices') else 0
+
+    # Получаем сырые данные (без трансформаций)
+    image, mask = original_dataset.__getitem__(idx, apply_transform=False)
+
+    fig, axes = plt.subplots(1, 3 if not original_dataset.transform else 4, figsize=(18, 5))
+
+    # 1. Исходное/предобработанное изображение
+    axes[0].imshow(image)
+    axes[0].set_title(f"1. {'Предобработанное' if preprocess_flag else 'Сырое'} изображение")
+
+    # 2. Маска
+    axes[1].imshow(mask.squeeze(), cmap='gray')
+    axes[1].set_title("2. Маска")
+
+    # 3. Если есть трансформы - аугментированное изображение
+    if original_dataset.transform:
+        augmented = original_dataset.transform(image=image, mask=mask)
+        aug_img = augmented["image"].permute(1, 2, 0).numpy()
+        axes[2].imshow(aug_img)
+        axes[2].set_title("3. После аугментаций")
+
+        # 4. Аугментированная маска
+        axes[3].imshow(augmented["mask"].squeeze(), cmap='gray')
+        axes[3].set_title("4. Маска после аугментаций")
+
+    for ax in axes:
+        ax.axis('off')
+
+    if save_to_disk:
+        os.makedirs("visualizations", exist_ok=True)
+        fig.savefig(f"visualizations/{title.replace(' ', '_')}.png", bbox_inches='tight')
+
+    plt.tight_layout()
+    plt.show()
+    return fig
 
 
 def train():
@@ -38,8 +79,16 @@ def train():
         images_dir="../PH2_Dataset/trainx",
         masks_dir="../PH2_Dataset/trainy",
         val_ratio=0.15,
-        test_ratio=0.05
+        test_ratio=0.05,
+        preprocess=True
     )
+
+    print("Диапазон значений:", train_dataset[0][0].min().item(), train_dataset[0][0].max().item())
+    # Визуализация
+    print("\nTrain Sample:")
+    visualize_sample(train_dataset, "Train Sample", preprocess_flag=True, save_to_disk=True)
+    print("\nValidation Sample:")
+    visualize_sample(val_dataset, "Val Sample", preprocess_flag=True, save_to_disk=True)
 
     train_loader = DataLoader(
         train_dataset,
@@ -107,6 +156,12 @@ def train():
                 metric_fn.update(outputs, masks.long())
 
             val_iou = metric_fn.compute().item()
+
+            if epoch % 5 == 0:  # Логируем каждые 5 эпох, чтобы не перегружать
+                fig = visualize_sample(val_dataset, f"Val Sample Epoch {epoch}", preprocess=True)
+                writer.add_figure("Validation Samples", fig, epoch)
+                plt.close(fig)
+
             metric_fn.reset()
 
         writer.add_scalar("Loss/val", val_loss / len(val_loader), epoch)

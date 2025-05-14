@@ -13,3 +13,511 @@ skin_lesion_segmentation/
 ├── checkpoints/            # Сохранённые модели
 ├── logs/                   # Логи TensorBoard
 └── README.md               # Описание проекта
+
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\Scripts\python.exe C:\Users\User\PycharmProjects\skin_lesion_segmentation\src\train.py
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Unique mask values: tensor([0, 1], dtype=torch.uint8)
+Epoch 1:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 1: 100%|██████████| 40/40 [19:05<00:00, 28.64s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 00:08:10,076][checkpointer][INFO] Best epoch MeanIoU value is 0.8396 on 1 epoch
+Epoch 2:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 2: 100%|██████████| 40/40 [16:21<00:00, 24.53s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 00:25:44,371][checkpointer][INFO] Best epoch MeanIoU value is 0.8396 on 1 epoch
+Epoch 3:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 3: 100%|██████████| 40/40 [16:04<00:00, 24.12s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 00:43:03,802][checkpointer][INFO] Best epoch MeanIoU value is 0.8396 on 1 epoch
+Epoch 4:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 4: 100%|██████████| 40/40 [17:04<00:00, 25.61s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 01:01:23,165][checkpointer][INFO] Best epoch MeanIoU value is 0.8396 on 1 epoch
+Epoch 5:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 5: 100%|██████████| 40/40 [16:22<00:00, 24.57s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 01:19:00,800][checkpointer][INFO] Best epoch MeanIoU value is 0.8396 on 1 epoch
+Epoch 6:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 6: 100%|██████████| 40/40 [16:26<00:00, 24.67s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 01:36:43,600][checkpointer][INFO] Best epoch MeanIoU value is 0.8396 on 1 epoch
+Epoch 7:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 7: 100%|██████████| 40/40 [16:22<00:00, 24.57s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 01:54:21,251][checkpointer][INFO] Best epoch MeanIoU value is 0.8396 on 1 epoch
+Epoch 8:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 8: 100%|██████████| 40/40 [16:20<00:00, 24.52s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 02:11:56,473][checkpointer][INFO] Best epoch MeanIoU value is 0.8396 on 1 epoch
+Epoch 9:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 9: 100%|██████████| 40/40 [16:23<00:00, 24.59s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 02:29:34,912][checkpointer][INFO] Best epoch MeanIoU value is 0.8396 on 1 epoch
+Epoch 10:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 10: 100%|██████████| 40/40 [16:32<00:00, 24.81s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 02:47:24,104][checkpointer][INFO] Best epoch MeanIoU value is 0.8396 on 1 epoch
+Epoch 11:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 11: 100%|██████████| 40/40 [16:22<00:00, 24.56s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 03:05:01,052][checkpointer][INFO] Best epoch MeanIoU value is 0.8396 on 1 epoch
+Epoch 12:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 12: 100%|██████████| 40/40 [16:23<00:00, 24.59s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 03:22:39,075][checkpointer][INFO] Best epoch MeanIoU value is 0.8396 on 1 epoch
+Epoch 13:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 13: 100%|██████████| 40/40 [16:25<00:00, 24.63s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 03:40:20,004][checkpointer][INFO] Best epoch MeanIoU value is 0.8443 on 13 epoch
+Epoch 14:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 14: 100%|██████████| 40/40 [16:30<00:00, 24.75s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 03:58:21,323][checkpointer][INFO] Best epoch MeanIoU value is 0.8443 on 13 epoch
+Epoch 15:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 15: 100%|██████████| 40/40 [16:49<00:00, 25.25s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 04:16:25,907][checkpointer][INFO] Best epoch MeanIoU value is 0.8443 on 13 epoch
+Epoch 16:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 16: 100%|██████████| 40/40 [16:32<00:00, 24.80s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 04:34:14,091][checkpointer][INFO] Best epoch MeanIoU value is 0.8443 on 13 epoch
+Epoch 17:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 17: 100%|██████████| 40/40 [16:24<00:00, 24.62s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 04:51:53,030][checkpointer][INFO] Best epoch MeanIoU value is 0.8497 on 17 epoch
+Epoch 18:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 18: 100%|██████████| 40/40 [16:22<00:00, 24.57s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 05:09:30,399][checkpointer][INFO] Best epoch MeanIoU value is 0.8497 on 17 epoch
+Epoch 19:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 19: 100%|██████████| 40/40 [16:19<00:00, 24.49s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 05:27:04,796][checkpointer][INFO] Best epoch MeanIoU value is 0.8497 on 17 epoch
+Epoch 20:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 20: 100%|██████████| 40/40 [16:32<00:00, 24.82s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 05:44:53,702][checkpointer][INFO] Best epoch MeanIoU value is 0.8843 on 20 epoch
+Epoch 21:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 21: 100%|██████████| 40/40 [16:20<00:00, 24.51s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 06:02:28,222][checkpointer][INFO] Best epoch MeanIoU value is 0.8843 on 20 epoch
+Epoch 22:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 22: 100%|██████████| 40/40 [16:23<00:00, 24.59s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 06:20:06,802][checkpointer][INFO] Best epoch MeanIoU value is 0.8843 on 20 epoch
+Epoch 23:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 23: 100%|██████████| 40/40 [16:34<00:00, 24.87s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 06:37:57,678][checkpointer][INFO] Best epoch MeanIoU value is 0.8843 on 20 epoch
+Epoch 24:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 24: 100%|██████████| 40/40 [16:25<00:00, 24.65s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 06:55:38,942][checkpointer][INFO] Best epoch MeanIoU value is 0.8843 on 20 epoch
+Epoch 25:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 25: 100%|██████████| 40/40 [16:25<00:00, 24.64s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 07:13:18,880][checkpointer][INFO] Best epoch MeanIoU value is 0.8843 on 20 epoch
+Epoch 26:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 26: 100%|██████████| 40/40 [16:24<00:00, 24.61s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 07:31:01,197][checkpointer][INFO] Best epoch MeanIoU value is 0.8843 on 20 epoch
+Epoch 27:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 27: 100%|██████████| 40/40 [16:26<00:00, 24.66s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 07:48:44,345][checkpointer][INFO] Best epoch MeanIoU value is 0.8843 on 20 epoch
+Epoch 28:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 28: 100%|██████████| 40/40 [16:28<00:00, 24.72s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 08:06:28,523][checkpointer][INFO] Best epoch MeanIoU value is 0.8843 on 20 epoch
+Epoch 29:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 29: 100%|██████████| 40/40 [16:32<00:00, 24.81s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 08:24:15,343][checkpointer][INFO] Best epoch MeanIoU value is 0.8961 on 29 epoch
+Epoch 30:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 30: 100%|██████████| 40/40 [16:35<00:00, 24.90s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 08:42:06,939][checkpointer][INFO] Best epoch MeanIoU value is 0.8961 on 29 epoch
+Epoch 31:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 31: 100%|██████████| 40/40 [16:30<00:00, 24.76s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 08:59:52,477][checkpointer][INFO] Best epoch MeanIoU value is 0.8961 on 29 epoch
+Epoch 32:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 32: 100%|██████████| 40/40 [16:28<00:00, 24.72s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 09:17:37,366][checkpointer][INFO] Best epoch MeanIoU value is 0.9127 on 32 epoch
+Epoch 33:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 33: 100%|██████████| 40/40 [16:40<00:00, 25.02s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 09:35:34,455][checkpointer][INFO] Best epoch MeanIoU value is 0.9127 on 32 epoch
+Epoch 34:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 34: 100%|██████████| 40/40 [16:34<00:00, 24.87s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 09:53:25,456][checkpointer][INFO] Best epoch MeanIoU value is 0.9127 on 32 epoch
+Epoch 35:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 35: 100%|██████████| 40/40 [16:27<00:00, 24.68s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 10:11:07,881][checkpointer][INFO] Best epoch MeanIoU value is 0.9136 on 35 epoch
+Epoch 36:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 36: 100%|██████████| 40/40 [16:36<00:00, 24.92s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 10:29:00,042][checkpointer][INFO] Best epoch MeanIoU value is 0.9136 on 35 epoch
+Epoch 37:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 37: 100%|██████████| 40/40 [16:40<00:00, 25.01s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 10:46:56,266][checkpointer][INFO] Best epoch MeanIoU value is 0.9235 on 37 epoch
+Epoch 38:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 38: 100%|██████████| 40/40 [16:52<00:00, 25.31s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 11:05:12,119][checkpointer][INFO] Best epoch MeanIoU value is 0.9235 on 37 epoch
+Epoch 39:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 39: 100%|██████████| 40/40 [16:44<00:00, 25.12s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 11:23:11,890][checkpointer][INFO] Best epoch MeanIoU value is 0.9235 on 37 epoch
+Epoch 40:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 40: 100%|██████████| 40/40 [16:48<00:00, 25.22s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 11:41:17,255][checkpointer][INFO] Best epoch MeanIoU value is 0.9235 on 37 epoch
+Epoch 41:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 41: 100%|██████████| 40/40 [16:47<00:00, 25.18s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 11:59:19,816][checkpointer][INFO] Best epoch MeanIoU value is 0.9235 on 37 epoch
+Epoch 42:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 42: 100%|██████████| 40/40 [16:43<00:00, 25.08s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 12:17:18,829][checkpointer][INFO] Best epoch MeanIoU value is 0.9235 on 37 epoch
+Epoch 43:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 43: 100%|██████████| 40/40 [16:40<00:00, 25.00s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 12:35:14,389][checkpointer][INFO] Best epoch MeanIoU value is 0.9235 on 37 epoch
+Epoch 44:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 44: 100%|██████████| 40/40 [16:37<00:00, 24.93s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 12:53:07,938][checkpointer][INFO] Best epoch MeanIoU value is 0.9237 on 44 epoch
+Epoch 45:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 45: 100%|██████████| 40/40 [16:31<00:00, 24.80s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 13:10:54,456][checkpointer][INFO] Best epoch MeanIoU value is 0.9237 on 44 epoch
+Epoch 46:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 46: 100%|██████████| 40/40 [16:11<00:00, 24.29s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 13:28:19,356][checkpointer][INFO] Best epoch MeanIoU value is 0.9237 on 44 epoch
+Epoch 47:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 47: 100%|██████████| 40/40 [16:10<00:00, 24.26s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 13:45:44,607][checkpointer][INFO] Best epoch MeanIoU value is 0.9237 on 44 epoch
+Epoch 48:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 48: 100%|██████████| 40/40 [16:05<00:00, 24.13s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 14:03:03,338][checkpointer][INFO] Best epoch MeanIoU value is 0.9237 on 44 epoch
+Epoch 49:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 49: 100%|██████████| 40/40 [16:05<00:00, 24.15s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 14:20:22,803][checkpointer][INFO] Best epoch MeanIoU value is 0.9237 on 44 epoch
+Epoch 50:   0%|          | 0/40 [00:00<?, ?it/s]C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+Epoch 50: 100%|██████████| 40/40 [16:10<00:00, 24.26s/it]
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+C:\Users\User\PycharmProjects\skin_lesion_segmentation\venv\lib\site-packages\albumentations\core\validation.py:111: UserWarning: ShiftScaleRotate is a special case of Affine transform. Please use Affine transform instead.
+  original_init(self, **validated_kwargs)
+[2025-05-13 14:37:49,624][checkpointer][INFO] Best epoch MeanIoU value is 0.9237 on 44 epoch
+Обучение завершено!
+
+Process finished with exit code 0

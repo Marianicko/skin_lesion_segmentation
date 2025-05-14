@@ -96,7 +96,11 @@ class HairRemovalSalido:
 class DermatologyPreprocessor:
     def __init__(self):
         self.hair_removal = HairRemovalSalido()
-        self.clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+        self.clahe_params = {'clipLimit': 2.0, 'tileGridSize': (8, 8)}
+
+    def __normalize(self, image: np.ndarray) -> np.ndarray:
+        image = image.astype(np.float32)/255.0
+        return image
 
     def __call__(self, image, mask=None):
         try:
@@ -107,12 +111,13 @@ class DermatologyPreprocessor:
             image = self.hair_removal(image)
 
             # 2. CLAHE (если нужно)
+            clahe = cv2.createCLAHE(**self.clahe_params)
             lab = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
             l, a, b = cv2.split(lab)
-            l_clahe = self.clahe.apply(l)
+            l_clahe = clahe.apply(l)
             image = cv2.cvtColor(cv2.merge([l_clahe, a, b]), cv2.COLOR_LAB2BGR)
 
-            return image, mask
+            return self.__normalize(image), mask
         except Exception as e:
             logger.error(f"Ошибка в предобработке: {e}")
             raise
