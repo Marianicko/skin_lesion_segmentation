@@ -76,8 +76,8 @@ def train():
 
     # Данные
     train_dataset, val_dataset, test_dataset = get_datasets(
-        images_dir="../PH2_Dataset/trainx",
-        masks_dir="../PH2_Dataset/trainy",
+        images_dir=Config.IMAGES_DIR,   # для локального запуска поменять на относительный путь "../PH2_Dataset/trainx"
+        masks_dir=Config.MASKS_DIR,   # для локального запуска поменять на относительный путь "../PH2_Dataset/trainy"
         val_ratio=0.15,
         test_ratio=0.05,
         preprocess=True
