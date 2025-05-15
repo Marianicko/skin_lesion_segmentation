@@ -131,3 +131,4 @@ class DermatologyPreprocessor:
         except Exception as e:
             logger.error(f"Ошибка в предобработке: {e}")
             raise
+

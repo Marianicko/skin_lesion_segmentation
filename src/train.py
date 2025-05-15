@@ -135,10 +135,10 @@ def train():
 
 
     # Метрики и loss
-    class_weights = torch.tensor([0.3, 0.7]).to(Config.DEVICE)
+    class_weights = torch.tensor([0.3, 0.7]).to(accelerator.DEVICE)
     loss_fn = CrossEntropyDiceLoss(weight=class_weights, ignore_index=-1)
     metric_fn = MeanIoU(classes_num=Config.NUM_CLASSES, ignore_index=-1)
-
+    '''
     # ДИАГНОСТИКА ПЕРЕД ОБУЧЕНИЕМ
     print("\n=== ДИАГНОСТИКА ===")
 
@@ -175,7 +175,7 @@ def train():
         return
 
     print("\n=== ДИАГНОСТИКА ЗАВЕРШЕНА ===\n")
-    
+    '''
     # Подготовка для Accelerator
     model, optimizer, train_loader, val_loader = accelerator.prepare(
         model, optimizer, train_loader, val_loader
@@ -196,12 +196,17 @@ def train():
         model.train()
         epoch_loss = 0.0
 
+        print(f"Устройство модели: {next(model.parameters()).device}")
+        print(f"Устройство изображений: {images.device}")
+        print(f"Устройство масок: {masks.device}")
+        print(f"Устройство loss_fn: {next(loss_fn.parameters()).device if hasattr(loss_fn, 'parameters') else 'None'}")
 
         # Обучение
         for images, masks in tqdm(train_loader, desc=f"Epoch {epoch + 1}"):
             optimizer.zero_grad()
             outputs = model(images)
-            loss = loss_fn(outputs, masks.long())
+            masks = masks.long().to(accelerator.device)
+            loss = loss_fn(outputs, masks)
             accelerator.backward(loss)
             optimizer.step()
             epoch_loss += loss.item()
