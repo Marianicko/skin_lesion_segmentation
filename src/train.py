@@ -17,6 +17,27 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
+def check_asymmetry(dataset, n_samples=3):
+    for i in range(n_samples):
+        img, mask = dataset[i]
+        img = img.permute(1, 2, 0).numpy() if isinstance(img, torch.Tensor) else img
+
+        fig, ax = plt.subplots(1, 2, figsize=(10, 5))
+        ax[0].imshow(img)
+        ax[0].set_title("Изображение")
+        ax[1].imshow(mask.squeeze(), cmap='gray')
+        ax[1].set_title("Маска")
+
+        # Проверка асимметрии (пример)
+        contours, _ = cv2.findContours(mask.numpy().astype(np.uint8), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        if len(contours) > 0:
+            (x, y), (w, h), angle = cv2.minAreaRect(contours[0])
+            ax[1].text(10, 30, f"Соотношение сторон: {max(w, h) / min(w, h):.2f}",
+                       color='red', fontsize=12)
+
+        plt.show()
+
+
 def visualize_sample(dataset, title="Sample", preprocess_flag=False, save_to_disk=False):
     original_dataset = dataset.dataset if hasattr(dataset, 'dataset') else dataset
     idx = dataset.indices[0] if hasattr(dataset, 'indices') else 0
@@ -90,6 +111,7 @@ def train():
     print("\nValidation Sample:")
     visualize_sample(val_dataset, "Val Sample", preprocess_flag=True, save_to_disk=True)
 
+    check_asymmetry(train_dataset)
     train_loader = DataLoader(
         train_dataset,
         batch_size=Config.BATCH_SIZE,
@@ -132,6 +154,14 @@ def train():
     for epoch in range(Config.EPOCHS):
         model.train()
         epoch_loss = 0.0
+
+        # Посмотрим на проблемы с размерами
+        for batch_idx, (images, masks) in enumerate(tqdm(train_loader)):
+            # Логирование размеров только для первой эпохи и первого батча
+            if epoch == 0 and batch_idx == 0:
+                print("\nРазмеры в первом батче:")
+                for i in range(images.shape[0]):
+                    print(f"Изображение {i}: {images[i].shape} | Маска {i}: {masks[i].shape}")
 
         # Обучение
         for images, masks in tqdm(train_loader, desc=f"Epoch {epoch + 1}"):
@@ -185,4 +215,5 @@ def evaluate(model, test_loader):
 
 
 if __name__ == "__main__":
+
     train()

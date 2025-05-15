@@ -9,24 +9,22 @@ from albumentations.pytorch.transforms import ToTensorV2
 from torch.utils.data import Dataset, random_split
 import numpy as np
 from preprocess_spec import DermatologyPreprocessor
+from collections import defaultdict
 
 IMAGE_SIZE = 512  # или ваш target_size
 
 # Определяем трансформации для train/val
 train_transforms = A.Compose([
-    A.SmallestMaxSize(max_size=IMAGE_SIZE, p=1.0),
-    A.RandomCrop(height=IMAGE_SIZE, width=IMAGE_SIZE, p=1.0),
+    A.LongestMaxSize(max_size=IMAGE_SIZE, p=1.0),  # Масштабируем по длинной стороне
+    A.PadIfNeeded(
+        min_height=IMAGE_SIZE,
+        min_width=IMAGE_SIZE,
+        border_mode=cv2.BORDER_CONSTANT,
+    ),
     A.HorizontalFlip(p=0.5),
     A.VerticalFlip(p=0.5),
-    A.ShiftScaleRotate(
-        shift_limit=0.1,
-        scale_limit=0.1,
-        rotate_limit=15,
-        border_mode=cv2.BORDER_CONSTANT,
-        p=0.5
-    ),
-    ToTensorV2(),
-])
+    ToTensorV2()
+], is_check_shapes=False)
 
 val_transforms = A.Compose([
     A.Resize(height=IMAGE_SIZE, width=IMAGE_SIZE, p=1.0),
@@ -117,3 +115,8 @@ if __name__ == "__main__":
     img, mask = train_ds[0]
     print(f"Image shape: {img.shape}, Mask shape: {mask.shape}")
     print(f"Mask unique values: {torch.unique(mask)}")  # Должно быть [0, 1]
+    sizes = defaultdict(int)
+    for img_path in train_ds.images:
+        img = cv2.imread(img_path)
+        sizes[img.shape[:2]] += 1
+    print("Распределение размеров:", sizes)

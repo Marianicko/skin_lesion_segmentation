@@ -52,6 +52,15 @@ class PHDataset(Dataset):
         mask = cv2.imread(self.masks[idx], cv2.IMREAD_GRAYSCALE)
         mask = (mask == 255).astype(np.uint8)  # Преобразует 255 в 1, остальное в 0
 
+        # Проверка размеров и логирование проблемных случаев
+        if image.shape[:2] != mask.shape[:2]:
+            print(f"\nРазмеры не совпадают: {self.images[idx]} vs {self.masks[idx]}")
+            print(f"Image: {image.shape[:2]}, Mask: {mask.shape[:2]}")
+
+            # Ресайз маски с сохранением границ (INTER_NEAREST - чтобы не размывать границы сегментации)
+            mask = cv2.resize(mask, (image.shape[1], image.shape[0]),
+                              interpolation=cv2.INTER_NEAREST)
+
         # Предобработка (если включена)
         if self.preprocess:
             image, _ = self.preprocessor(image)
