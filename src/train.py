@@ -112,6 +112,9 @@ def train():
     visualize_sample(val_dataset, "Val Sample", preprocess_flag=True, save_to_disk=True)
 
     check_asymmetry(train_dataset)
+
+
+
     train_loader = DataLoader(
         train_dataset,
         batch_size=Config.BATCH_SIZE,
@@ -135,20 +138,6 @@ def train():
     class_weights = torch.tensor([0.3, 0.7]).to(Config.DEVICE)
     loss_fn = CrossEntropyDiceLoss(weight=class_weights, ignore_index=-1)
     metric_fn = MeanIoU(classes_num=Config.NUM_CLASSES, ignore_index=-1)
-
-    # Подготовка для Accelerator
-    model, optimizer, train_loader, val_loader = accelerator.prepare(
-        model, optimizer, train_loader, val_loader
-    )
-
-    # Чекпоинтер
-    checkpointer = CheckpointSaver(
-        accelerator=accelerator,
-        model=model,
-        metric_name="MeanIoU",
-        save_dir=Config.CHECKPOINTS_DIR,
-        should_minimize=False
-    )
 
     # ДИАГНОСТИКА ПЕРЕД ОБУЧЕНИЕМ
     print("\n=== ДИАГНОСТИКА ===")
@@ -187,6 +176,21 @@ def train():
 
     print("\n=== ДИАГНОСТИКА ЗАВЕРШЕНА ===\n")
     
+    # Подготовка для Accelerator
+    model, optimizer, train_loader, val_loader = accelerator.prepare(
+        model, optimizer, train_loader, val_loader
+    )
+
+    # Чекпоинтер
+    checkpointer = CheckpointSaver(
+        accelerator=accelerator,
+        model=model,
+        metric_name="MeanIoU",
+        save_dir=Config.CHECKPOINTS_DIR,
+        should_minimize=False
+    )
+
+
     # Цикл обучения
     for epoch in range(Config.EPOCHS):
         model.train()
