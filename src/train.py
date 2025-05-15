@@ -150,6 +150,43 @@ def train():
         should_minimize=False
     )
 
+    # ДИАГНОСТИКА ПЕРЕД ОБУЧЕНИЕМ
+    print("\n=== ДИАГНОСТИКА ===")
+
+    # 1. Проверим первый батч из train_loader
+    print("\nПроверяем первый батч из train_loader:")
+    try:
+        train_batch = next(iter(train_loader))
+        print(f"Тип изображений: {type(train_batch[0])}, форма: {train_batch[0].shape}")
+        print(f"Тип масок: {type(train_batch[1])}, форма: {train_batch[1].shape}")
+        print(f"Уникальные значения в масках: {torch.unique(train_batch[1])}")
+    except Exception as e:
+        print(f"Ошибка при загрузке батча: {str(e)}")
+        return
+
+    # 2. Проверим работу модели на одном батче
+    print("\nПроверяем forward pass модели:")
+    try:
+        model.eval()
+        with torch.no_grad():
+            outputs = model(train_batch[0])
+            print(
+                f"Выход модели: форма {outputs.shape}, диапазон [{outputs.min().item():.3f}, {outputs.max().item():.3f}]")
+    except Exception as e:
+        print(f"Ошибка в forward pass: {str(e)}")
+        return
+
+    # 3. Проверим вычисление loss
+    print("\nПроверяем вычисление loss:")
+    try:
+        loss = loss_fn(outputs, train_batch[1].long())
+        print(f"Loss успешно вычислен: {loss.item():.4f}")
+    except Exception as e:
+        print(f"Ошибка при вычислении loss: {str(e)}")
+        return
+
+    print("\n=== ДИАГНОСТИКА ЗАВЕРШЕНА ===\n")
+    
     # Цикл обучения
     for epoch in range(Config.EPOCHS):
         model.train()
