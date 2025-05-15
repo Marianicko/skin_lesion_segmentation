@@ -135,7 +135,7 @@ def train():
 
 
     # Метрики и loss
-    class_weights = torch.tensor([0.3, 0.7]).to(accelerator.DEVICE)
+    class_weights = torch.tensor([0.3, 0.7]).to(accelerator.device)
     loss_fn = CrossEntropyDiceLoss(weight=class_weights, ignore_index=-1)
     metric_fn = MeanIoU(classes_num=Config.NUM_CLASSES, ignore_index=-1)
     '''
