@@ -21,5 +21,7 @@ class Config:
     # Пути
     CHECKPOINTS_DIR = "checkpoints"
     LOGS_DIR = "logs"
+    IMAGES_DIR = "./PH2_Dataset/trainx"
+    MASKS_DIR = "./PH2_Dataset/trainy"
 
 config = Config()
