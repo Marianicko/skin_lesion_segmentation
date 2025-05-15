@@ -155,13 +155,6 @@ def train():
         model.train()
         epoch_loss = 0.0
 
-        # Посмотрим на проблемы с размерами
-        for batch_idx, (images, masks) in enumerate(tqdm(train_loader)):
-            # Логирование размеров только для первой эпохи и первого батча
-            if epoch == 0 and batch_idx == 0:
-                print("\nРазмеры в первом батче:")
-                for i in range(images.shape[0]):
-                    print(f"Изображение {i}: {images[i].shape} | Маска {i}: {masks[i].shape}")
 
         # Обучение
         for images, masks in tqdm(train_loader, desc=f"Epoch {epoch + 1}"):
