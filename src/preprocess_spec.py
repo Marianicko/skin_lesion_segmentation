@@ -10,12 +10,15 @@ logger = logging.getLogger(__name__)
 
 def crop_black_border(image: np.ndarray, threshold: int = 5) -> np.ndarray:
     """Обрезает чёрную рамку вокруг дерматоскопического изображения."""
+    original_size = image.shape[:2]
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     _, binary = cv2.threshold(gray, threshold, 255, cv2.THRESH_BINARY)
     contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     if not contours:
         return image
     x, y, w, h = cv2.boundingRect(max(contours, key=cv2.contourArea))
+    cropped = image[y:y + h, x:x + w]
+    logger.info(f"Обрезка: {original_size} -> {cropped.shape[:2]}")
     return image[y:y+h, x:x+w]
 
 
@@ -104,6 +107,8 @@ class DermatologyPreprocessor:
 
     def __call__(self, image, mask=None):
         try:
+            original_size = image.shape[:2]
+
             # Step 0: Обрезаем чёрную рамку
             image = crop_black_border(image)
             
@@ -113,10 +118,15 @@ class DermatologyPreprocessor:
             # 2. CLAHE (если нужно)
             clahe = cv2.createCLAHE(**self.clahe_params)
             lab = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
+
+            assert lab.shape[:2] == image.shape[:2], "Размеры изменились после COLOR_BGR2LAB"
+
             l, a, b = cv2.split(lab)
             l_clahe = clahe.apply(l)
             image = cv2.cvtColor(cv2.merge([l_clahe, a, b]), cv2.COLOR_LAB2BGR)
-
+            assert image.shape[:2] == original_size, "Размер изменился в препроцессинге"
+            if mask is not None:
+                assert mask.shape[:2] == original_size, "Размер маски не соответствует изображению"
             return self.__normalize(image), mask
         except Exception as e:
             logger.error(f"Ошибка в предобработке: {e}")
