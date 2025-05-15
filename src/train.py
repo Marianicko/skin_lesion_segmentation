@@ -196,13 +196,17 @@ def train():
         model.train()
         epoch_loss = 0.0
 
-        print(f"Устройство модели: {next(model.parameters()).device}")
-        print(f"Устройство изображений: {images.device}")
-        print(f"Устройство масок: {masks.device}")
-        print(f"Устройство loss_fn: {next(loss_fn.parameters()).device if hasattr(loss_fn, 'parameters') else 'None'}")
+
 
         # Обучение
         for images, masks in tqdm(train_loader, desc=f"Epoch {epoch + 1}"):
+            if epoch == 0:  # Только первой эпохи
+                print(f"\nУстройство модели: {next(model.parameters()).device}")
+                print(f"Устройство изображений: {images.device}")
+                print(f"Устройство масок: {masks.device}")
+                print(
+                    f"Устройство loss_fn: {next(loss_fn.parameters()).device if hasattr(loss_fn, 'parameters') else 'None'}")
+
             optimizer.zero_grad()
             outputs = model(images)
             masks = masks.long().to(accelerator.device)
