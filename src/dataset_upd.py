@@ -14,19 +14,32 @@ IMAGE_SIZE = 512
 
 # Определяем трансформации для train/val
 train_transforms = A.Compose([
-    A.SmallestMaxSize(max_size=IMAGE_SIZE, p=1.0),
+    # 1. Сначала приводим к общему размеру (сохраняя пропорции)
+    A.LongestMaxSize(max_size=IMAGE_SIZE, p=1.0, interpolation=cv2.INTER_LINEAR),
+
+    # 2. Добавляем padding до квадрата (чтобы RandomCrop не выходил за границы)
+    A.PadIfNeeded(
+        min_height=IMAGE_SIZE,
+        min_width=IMAGE_SIZE,
+        border_mode=cv2.BORDER_CONSTANT,
+        position='random'
+    ),
+
+    # 3. Теперь безопасный RandomCrop
     A.RandomCrop(height=IMAGE_SIZE, width=IMAGE_SIZE, p=1.0),
+
+    # 4. Аугментации
     A.HorizontalFlip(p=0.5),
     A.VerticalFlip(p=0.5),
     A.Affine(
         translate_percent=0.1,
-        scale=(0.1, 0.9),
+        scale=(0.9, 1.1),  # Ограничим масштабирование
         rotate=(-15, 15),
-        border_mode=cv2.BORDER_CONSTANT,
         p=0.5
     ),
     ToTensorV2(),
-])
+], is_check_shapes=False)  # Явно отключаем проверку
+
 
 val_transforms = A.Compose([
     A.Resize(height=IMAGE_SIZE, width=IMAGE_SIZE, p=1.0),
@@ -47,31 +60,30 @@ class PHDataset(Dataset):
         return len(self.images)
 
     def __getitem__(self, idx, apply_transform=True):
-        # Загрузка изображения и маски
+        # Загрузка с принудительным приведением размеров
         image = cv2.cvtColor(cv2.imread(self.images[idx]), cv2.COLOR_BGR2RGB)
         mask = cv2.imread(self.masks[idx], cv2.IMREAD_GRAYSCALE)
-        mask = (mask == 255).astype(np.uint8)  # Преобразует 255 в 1, остальное в 0
+        mask = (mask == 255).astype(np.uint8)
 
-        # Проверка размеров и логирование проблемных случаев
+        # Жёсткий ресайз маски под изображение
         if image.shape[:2] != mask.shape[:2]:
-            print(f"\nРазмеры не совпадают: {self.images[idx]} vs {self.masks[idx]}")
-            print(f"Image: {image.shape[:2]}, Mask: {mask.shape[:2]}")
-
-            # Ресайз маски с сохранением границ (INTER_NEAREST - чтобы не размывать границы сегментации)
             mask = cv2.resize(mask, (image.shape[1], image.shape[0]),
                               interpolation=cv2.INTER_NEAREST)
 
-        # Предобработка (если включена)
+        # Предобработка
         if self.preprocess:
             image, _ = self.preprocessor(image)
         else:
             image = image.astype(np.float32) / 255.0
 
-        # Применение трансформаций
+        # Аугментации
         if self.transform and apply_transform:
-            augmented = self.transform(image=image, mask=mask)
-            image, mask = augmented["image"], augmented["mask"]
-
+            try:
+                augmented = self.transform(image=image, mask=mask)
+                image, mask = augmented["image"], augmented["mask"]
+            except Exception as e:
+                print(f"Error in {self.images[idx]}: {e}")
+                raise
         return image, mask
 
 
