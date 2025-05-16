@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import logging
+import warnings
 from typing import Tuple, Optional
 
 # Настраиваем логирование
@@ -97,38 +98,63 @@ class HairRemovalSalido:
 
 
 class DermatologyPreprocessor:
-    def __init__(self):
+    def __init__(self, debug=False):
         self.hair_removal = HairRemovalSalido()
         self.clahe_params = {'clipLimit': 2.0, 'tileGridSize': (8, 8)}
+        self.debug = debug
 
     def __normalize(self, image: np.ndarray) -> np.ndarray:
         image = image.astype(np.float32)/255.0
         return image
 
-    def __call__(self, image, mask=None):
+    def __call__(self, image):
+        """
+        Обрабатывает изображение с сохранением исходного размера.
+        Возвращает:
+            processed_image: обработанное изображение (сохранён исходный размер)
+            original_size: кортеж (height, width) исходного изображения
+        """
+        import warnings
+
+        # Сохраняем оригинальные размеры и тип
+        original_size = image.shape[:2]
+        original_dtype = image.dtype
+
+        if self.debug:  # Добавьте debug=True в __init__ если нужно
+            print(f"[Preprocessor] Размер до обработки: {original_size}")
+            print(f"[Preprocessor] Тип до обработки: {original_dtype}")
+
         try:
-            original_size = image.shape[:2]
+            # =============================================
+            # Ваши основные операции препроцессинга
+            # Например:
+            processed_image = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
+            processed_image = self.apply_clahe(processed_image)  # Ваш метод CLAHE
+            processed_image = cv2.cvtColor(processed_image, cv2.LAB2BGR)
+            # =============================================
 
-            # Step 0: Обрезаем чёрную рамку
-            image = crop_black_border(image)
-            
-            # 1. Удаление артефактов (до аугментаций!)
-            image = self.hair_removal(image)
+            # Проверка и корректировка размера
+            if processed_image.shape[:2] != original_size:
+                warnings.warn(
+                    f"Препроцессинг изменил размер с {original_size} на {processed_image.shape[:2]}. "
+                    f"Автоматически восстанавливаю исходный размер."
+                )
+                processed_image = cv2.resize(
+                    processed_image,
+                    (original_size[1], original_size[0]),  # (width, height)
+                    interpolation=cv2.INTER_LANCZOS4  # Качественная интерполяция
+                )
 
-            # 2. CLAHE (если нужно)
-            clahe = cv2.createCLAHE(**self.clahe_params)
-            lab = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
+            # Проверка типа данных
+            if processed_image.dtype != original_dtype:
+                processed_image = processed_image.astype(original_dtype)
 
-            assert lab.shape[:2] == image.shape[:2], "Размеры изменились после COLOR_BGR2LAB"
-
-            l, a, b = cv2.split(lab)
-            l_clahe = clahe.apply(l)
-            image = cv2.cvtColor(cv2.merge([l_clahe, a, b]), cv2.COLOR_LAB2BGR)
-            assert image.shape[:2] == original_size, "Размер изменился в препроцессинге"
-            if mask is not None:
-                assert mask.shape[:2] == original_size, "Размер маски не соответствует изображению"
-            return self.__normalize(image), mask
         except Exception as e:
-            logger.error(f"Ошибка в предобработке: {e}")
-            raise
+            raise RuntimeError(f"Ошибка в препроцессинге: {str(e)}") from e
+
+        if self.debug:
+            print(f"[Preprocessor] Размер после обработки: {processed_image.shape[:2]}")
+            print(f"[Preprocessor] Тип после обработки: {processed_image.dtype}")
+
+        return processed_image, original_size
 

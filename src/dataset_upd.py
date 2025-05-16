@@ -53,7 +53,7 @@ class PHDataset(Dataset):
         self.masks = sorted(glob.glob(os.path.join(masks_dir, "*_lesion.bmp")))
         self.transform = transform
         self.preprocess = preprocess
-        self.preprocessor = DermatologyPreprocessor() if preprocess else None
+        self.preprocessor = DermatologyPreprocessor(debug=True) if preprocess else None
         assert len(self.images) == len(self.masks), "Кол-во изображений и масок не совпадает"
 
     def __len__(self):
