@@ -136,7 +136,7 @@ def train():
 
     # Метрики и loss
     class_weights = torch.tensor([0.3, 0.7]).to(accelerator.device)
-    loss_fn = CrossEntropyDiceLoss(weight=class_weights, ignore_index=-1)
+    loss_fn = CrossEntropyDiceLoss(weight=class_weights, ignore_index=-1).to(accelerator.device)
     metric_fn = MeanIoU(classes_num=Config.NUM_CLASSES, ignore_index=-1)
     '''
     # ДИАГНОСТИКА ПЕРЕД ОБУЧЕНИЕМ
@@ -196,16 +196,15 @@ def train():
         model.train()
         epoch_loss = 0.0
 
-
-
         # Обучение
         for images, masks in tqdm(train_loader, desc=f"Epoch {epoch + 1}"):
             if epoch == 0:  # Только первой эпохи
-                print(f"\nУстройство модели: {next(model.parameters()).device}")
+                print("\n=== Проверка устройств ===")
+                print(f"Устройство модели: {next(model.parameters()).device}")
                 print(f"Устройство изображений: {images.device}")
                 print(f"Устройство масок: {masks.device}")
-                print(
-                    f"Устройство loss_fn: {next(loss_fn.parameters()).device if hasattr(loss_fn, 'parameters') else 'None'}")
+                print(f"Тип loss_fn: {type(loss_fn)}")
+                print("=========================\n")
 
             optimizer.zero_grad()
             outputs = model(images)
