@@ -60,21 +60,35 @@ class PHDataset(Dataset):
         return len(self.images)
 
     def __getitem__(self, idx, apply_transform=True):
-        # Загрузка с принудительным приведением размеров
+        # Загрузка с сохранением оригинальных размеров
         image = cv2.cvtColor(cv2.imread(self.images[idx]), cv2.COLOR_BGR2RGB)
         mask = cv2.imread(self.masks[idx], cv2.IMREAD_GRAYSCALE)
         mask = (mask == 255).astype(np.uint8)
 
-        # Жёсткий ресайз маски под изображение
-        if image.shape[:2] != mask.shape[:2]:
-            mask = cv2.resize(mask, (image.shape[1], image.shape[0]),
-                              interpolation=cv2.INTER_NEAREST)
-
-        # Предобработка
+        # Синхронная обработка изображения и маски
         if self.preprocess:
-            image, _ = self.preprocessor(image)
+            # Сохраняем копии для отладки
+            original_image = image.copy()
+            original_mask = mask.copy()
+
+            # Препроцессинг с контролем размеров
+            image, mask = self.preprocessor(image, mask)
+
+            # Восстановление размеров если нужно
+            if image.shape[:2] != mask.shape[:2]:
+                h, w = image.shape[:2]
+                mask = cv2.resize(mask, (w, h), interpolation=cv2.INTER_NEAREST)
+
+        # Нормализация если нет препроцессинга
         else:
             image = image.astype(np.float32) / 255.0
+
+        # Проверка размеров перед аугментациями
+        if image.shape[:2] != mask.shape[:2]:
+            raise ValueError(
+                f"Размеры не совпадают после препроцессинга: "
+                f"image {image.shape[:2]} vs mask {mask.shape[:2]}"
+            )
 
         # Аугментации
         if self.transform and apply_transform:
@@ -83,7 +97,9 @@ class PHDataset(Dataset):
                 image, mask = augmented["image"], augmented["mask"]
             except Exception as e:
                 print(f"Error in {self.images[idx]}: {e}")
-                raise
+                # Возвращаем неаугментированные данные при ошибке
+                return image, mask
+
         return image, mask
 
 

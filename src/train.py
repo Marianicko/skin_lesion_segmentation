@@ -198,6 +198,7 @@ def train():
 
         # Обучение
         for images, masks in tqdm(train_loader, desc=f"Epoch {epoch + 1}"):
+            '''
             if epoch == 0:  # Только первой эпохи
                 print("\n=== Проверка устройств ===")
                 print(f"Устройство модели: {next(model.parameters()).device}")
@@ -205,6 +206,7 @@ def train():
                 print(f"Устройство масок: {masks.device}")
                 print(f"Тип loss_fn: {type(loss_fn)}")
                 print("=========================\n")
+            '''
 
             optimizer.zero_grad()
             outputs = model(images)
