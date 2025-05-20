@@ -155,6 +155,11 @@ def train():
         should_minimize=False
     )
 
+    # Проверка аугментаций
+    sample_img, sample_mask = train_dataset[0]
+    print("Уникальные значения в маске после трансформаций:", torch.unique(sample_mask))
+    visualize_sample(train_dataset, "Augmented Sample", preprocess_flag=False)
+
     # Цикл обучения с обработкой ошибок
     for epoch in range(Config.EPOCHS):
         model.train()

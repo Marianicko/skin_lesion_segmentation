@@ -110,29 +110,48 @@ class PHDataset(Dataset):
 
 
 def get_datasets(images_dir, masks_dir, val_ratio=0.2, test_ratio=0.1, seed=42, preprocess=False, crop_borders=True):
-    """Правильное разделение на train/val/test с использованием Subset"""
-    # Создаем полный датасет без трансформаций
-    full_dataset = PHDataset(images_dir, masks_dir, transform=None, preprocess=preprocess, crop_borders=crop_borders)
-
-    # Разделяем индексы
-    dataset_size = len(full_dataset)
-    val_size = int(dataset_size * val_ratio)
-    test_size = int(dataset_size * test_ratio)
-    train_size = dataset_size - val_size - test_size
-
-    # Разделяем датасет
-    train_dataset, val_dataset, test_dataset = random_split(
-        full_dataset,
-        [train_size, val_size, test_size],
-        generator=torch.Generator().manual_seed(seed)
+    """Разделение данных на train/val/test с корректным применением трансформаций."""
+    # Создаём отдельные датасеты с разными трансформациями
+    train_dataset = PHDataset(
+        images_dir, masks_dir,
+        transform=train_transforms,  # Аугментации для обучения
+        preprocess=preprocess,
+        crop_borders=crop_borders
+    )
+    val_dataset = PHDataset(
+        images_dir, masks_dir,
+        transform=val_transforms,  # Только resize для валидации
+        preprocess=preprocess,
+        crop_borders=crop_borders
+    )
+    test_dataset = PHDataset(
+        images_dir, masks_dir,
+        transform=val_transforms,  # Только resize для теста
+        preprocess=preprocess,
+        crop_borders=crop_borders
     )
 
-    # Присваиваем правильные трансформации
-    train_dataset.dataset.transform = train_transforms
-    val_dataset.dataset.transform = val_transforms
-    test_dataset.dataset.transform = val_transforms
+    # Разделяем индексы вручную (без random_split)
+    indices = list(range(len(train_dataset)))  # Все датасеты имеют одинаковую длину
+    train_size = int((1 - val_ratio - test_ratio) * len(indices))
+    val_size = int(val_ratio * len(indices))
+    test_size = len(indices) - train_size - val_size
 
-    return train_dataset, val_dataset, test_dataset
+    # Перемешиваем индексы для воспроизводимости
+    rng = np.random.RandomState(seed)
+    rng.shuffle(indices)
+
+    train_indices = indices[:train_size]
+    val_indices = indices[train_size:train_size + val_size]
+    test_indices = indices[train_size + val_size:]
+
+    # Создаём Subset с уже назначенными трансформациями
+    from torch.utils.data import Subset
+    train_subset = Subset(train_dataset, train_indices)
+    val_subset = Subset(val_dataset, val_indices)
+    test_subset = Subset(test_dataset, test_indices)
+
+    return train_subset, val_subset, test_subset
 
 '''
 # Пример использования для отладки
