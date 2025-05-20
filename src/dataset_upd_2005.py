@@ -66,7 +66,7 @@ class PHDataset(Dataset):
         #print(f"\n--- Processing item {idx} ---")
 
         # Загрузка
-        print("Loading images...")
+        #print("Loading images...")
         image = cv2.cvtColor(cv2.imread(self.images[idx]), cv2.COLOR_BGR2RGB)
         mask = cv2.imread(self.masks[idx], cv2.IMREAD_GRAYSCALE)
         #print(f"Initial types - image: {type(image)}, mask: {type(mask)}")
@@ -76,7 +76,7 @@ class PHDataset(Dataset):
 
         # Препроцессинг
         if self.preprocess:
-            print("Applying preprocessing...")
+            #print("Applying preprocessing...")
             image, mask = self.preprocessor(image, mask)
             #print(f"After preprocessing - image type: {type(image)}, mask type: {type(mask)}")
         else:
@@ -89,7 +89,7 @@ class PHDataset(Dataset):
 
         # Аугментации
         if self.transform and apply_transform:
-            print("Applying transforms...")
+            #print("Applying transforms...")
             #print(f"Before transform - image type: {type(image)}, mask type: {type(mask)}")
             transformed = self.transform(image=image, mask=mask)
             image, mask = transformed["image"], transformed["mask"]

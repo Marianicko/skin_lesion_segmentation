@@ -191,7 +191,18 @@ def train():
                 metric_fn.update(outputs, masks.long())
 
             val_iou = metric_fn.compute().item()
-            # ... остальной код валидации ...
+            if epoch % 5 == 0:  # Логируем каждые 5 эпох, чтобы не перегружать
+                fig = visualize_sample(val_dataset, f"Val Sample Epoch {epoch}", preprocess=True)
+                writer.add_figure("Validation Samples", fig, epoch)
+                plt.close(fig)
+
+            metric_fn.reset()
+
+        writer.add_scalar("Loss/val", val_loss / len(val_loader), epoch)
+        writer.add_scalar("IoU/val", val_iou, epoch)
+
+        # Сохранение модели
+        checkpointer.save(val_iou, epoch)
 
     writer.close()
     print("Обучение завершено успешно!")
