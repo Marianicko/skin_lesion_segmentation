@@ -193,7 +193,7 @@ def train():
 
 def evaluate(model, test_loader):
     model.eval()
-    metric_fn = MeanIoU(classes_num=Config.NUM_CLASSES, ignore_index=-1)
+    metric_fn = MeanIoU(classes_num=Config.NUM_CLASSES, ignore_index=-1).to(Config.DEVICE)
     with torch.no_grad():
         for images, masks in test_loader:
             outputs = model(images.to(Config.DEVICE))
