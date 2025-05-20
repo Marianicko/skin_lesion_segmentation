@@ -63,32 +63,27 @@ class PHDataset(Dataset):
         # Загрузка
         image = cv2.cvtColor(cv2.imread(self.images[idx]), cv2.COLOR_BGR2RGB)
         mask = cv2.imread(self.masks[idx], cv2.IMREAD_GRAYSCALE)
-        mask = (mask == 255).astype(np.uint8) * 1   # 0 & 1
+        mask = (mask == 255).astype(np.uint8) * 1  # Конвертация в 0 и 1
 
         # Препроцессинг
         if self.preprocess:
-            # Сохраняем копии для отладки
-            original_image = image.copy()
-            original_mask = mask.copy()
+            image, mask = self.preprocessor(image, mask)
+        else:
+            image = image.astype(np.float32) / 255.0
 
-            # Препроцессинг (или нормализация)
-            if self.preprocess:
-                image, mask = self.preprocessor(image, mask)
-            else:
-                image = image.astype(np.float32) / 255.0
-
-            # Проверка размеров
-            if image.shape[:2] != mask.shape[:2]:
-                raise ValueError(f"Размеры не совпадают: image {image.shape}, mask {mask.shape}")
+        # Проверка размеров
+        if image.shape[:2] != mask.shape[:2]:
+            raise ValueError(f"Размеры не совпадают: image {image.shape}, mask {mask.shape}")
 
         # Аугментации
         if self.transform and apply_transform:
             transformed = self.transform(
                 image=image,
-                mask=mask
+                mask=mask  # Убираем .astype(np.float32), так как albumentations сам конвертирует
             )
             image, mask = transformed["image"], transformed["mask"]
-            mask = (mask > 0.5).where(mask > 0.5, 1, 0).long()  # Возвращаем бинарность
+            # Для тензора используем torch.where вместо astype
+            mask = torch.where(mask > 0.5, 1, 0).long()  # Бинаризация для тензора
 
         return image, mask
 
