@@ -134,13 +134,15 @@ def train():
     )
 
     # Метрики и loss
-    class_weights = torch.tensor([0.3, 0.7]).to(accelerator.device)
-    loss_fn = CrossEntropyDiceLoss(weight=class_weights, ignore_index=-1).to(accelerator.device)
-    metric_fn = MeanIoU(classes_num=Config.NUM_CLASSES, ignore_index=-1).to(accelerator.device)
+    device = accelerator.device
+
+    class_weights = torch.tensor([0.3, 0.7], device=device)
+    loss_fn = CrossEntropyDiceLoss(weight=class_weights, ignore_index=-1).to(device)
+    metric_fn = MeanIoU(classes_num=Config.NUM_CLASSES, ignore_index=-1).to(device)
 
     # Подготовка для Accelerator (оставить без изменений)
     model, optimizer, train_loader, val_loader = accelerator.prepare(
-        model, optimizer, train_loader, val_loader
+        model, optimizer, train_loader, val_loader, metric_fn
     )
 
     # Чекпоинтер (оставить без изменений)
@@ -193,11 +195,14 @@ def train():
 
 def evaluate(model, test_loader):
     model.eval()
-    metric_fn = MeanIoU(classes_num=Config.NUM_CLASSES, ignore_index=-1).to(Config.DEVICE)
+    device = next(model.parameters()).device
+    metric_fn = MeanIoU(classes_num=Config.NUM_CLASSES, ignore_index=-1).to(device)
     with torch.no_grad():
         for images, masks in test_loader:
-            outputs = model(images.to(Config.DEVICE))
-            metric_fn.update(outputs, masks.long().to(Config.DEVICE))
+            images = images.to(device)
+            masks = masks.to(device)
+            outputs = model(images)
+            metric_fn.update(outputs, masks.long())
     return metric_fn.compute().item()
 
 
