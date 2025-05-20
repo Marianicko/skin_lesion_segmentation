@@ -191,7 +191,7 @@ def train():
                 metric_fn.update(outputs, masks.long())
 
             val_iou = metric_fn.compute().item()
-            if epoch % 5 == 0:  # Логируем каждые 5 эпох, чтобы не перегружать
+            if epoch % 2 == 0:  # Логируем каждые 2 эпохи (5), чтобы не перегружать
                 fig = visualize_sample(val_dataset, f"Val Sample Epoch {epoch}", preprocess=True)
                 writer.add_figure("Validation Samples", fig, epoch)
                 plt.close(fig)
@@ -202,6 +202,7 @@ def train():
         writer.add_scalar("IoU/val", val_iou, epoch)
 
         # Сохранение модели
+        print("Saving checkpoint (val_iou == ", val_iou)
         checkpointer.save(val_iou, epoch)
 
     writer.close()
