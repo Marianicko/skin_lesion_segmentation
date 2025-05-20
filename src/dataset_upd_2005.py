@@ -63,22 +63,22 @@ class PHDataset(Dataset):
         return len(self.images)
 
     def __getitem__(self, idx, apply_transform=True):
-        print(f"\n--- Processing item {idx} ---")
+        #print(f"\n--- Processing item {idx} ---")
 
         # Загрузка
         print("Loading images...")
         image = cv2.cvtColor(cv2.imread(self.images[idx]), cv2.COLOR_BGR2RGB)
         mask = cv2.imread(self.masks[idx], cv2.IMREAD_GRAYSCALE)
-        print(f"Initial types - image: {type(image)}, mask: {type(mask)}")
+        #print(f"Initial types - image: {type(image)}, mask: {type(mask)}")
 
         mask = (mask == 255).astype(np.uint8) * 1
-        print(f"After binarization - mask type: {type(mask)}, dtype: {mask.dtype}")
+        #print(f"After binarization - mask type: {type(mask)}, dtype: {mask.dtype}")
 
         # Препроцессинг
         if self.preprocess:
             print("Applying preprocessing...")
             image, mask = self.preprocessor(image, mask)
-            print(f"After preprocessing - image type: {type(image)}, mask type: {type(mask)}")
+            #print(f"After preprocessing - image type: {type(image)}, mask type: {type(mask)}")
         else:
             image = image.astype(np.float32) / 255.0
 
@@ -90,22 +90,22 @@ class PHDataset(Dataset):
         # Аугментации
         if self.transform and apply_transform:
             print("Applying transforms...")
-            print(f"Before transform - image type: {type(image)}, mask type: {type(mask)}")
+            #print(f"Before transform - image type: {type(image)}, mask type: {type(mask)}")
             transformed = self.transform(image=image, mask=mask)
             image, mask = transformed["image"], transformed["mask"]
-            print(f"After transform - image type: {type(image)}, mask type: {type(mask)}")
+            #print(f"After transform - image type: {type(image)}, mask type: {type(mask)}")
 
             if torch.is_tensor(mask):
-                print(f"Mask tensor values before binarization: {torch.unique(mask)}")
+                #print(f"Mask tensor values before binarization: {torch.unique(mask)}")
                 mask = (mask > 0.5).long()
-                print(f"Mask tensor values after binarization: {torch.unique(mask)}")
+                #print(f"Mask tensor values after binarization: {torch.unique(mask)}")
 
         if self.target_size and not self.transform:
             # Если трансформации нет, делаем resize здесь
             image = cv2.resize(image, self.target_size, interpolation=cv2.INTER_LINEAR)
             mask = cv2.resize(mask, self.target_size, interpolation=cv2.INTER_NEAREST)
 
-        print(f"Final types - image: {type(image)}, mask: {type(mask)}")
+        #print(f"Final types - image: {type(image)}, mask: {type(mask)}")
         return image, mask
 
 
@@ -143,10 +143,10 @@ if __name__ == "__main__":
         preprocess=True
     )
 
-    print(f"Train size: {len(train_ds)}, Val size: {len(val_ds)}, Test size: {len(test_ds)}")
+    #print(f"Train size: {len(train_ds)}, Val size: {len(val_ds)}, Test size: {len(test_ds)}")
     img, mask = train_ds[0]
-    print(f"Image shape: {img.shape}, Mask shape: {mask.shape}")
-    print(f"Mask unique values: {torch.unique(mask)}")
+    #print(f"Image shape: {img.shape}, Mask shape: {mask.shape}")
+    #print(f"Mask unique values: {torch.unique(mask)}")
 '''
 
 
@@ -159,7 +159,7 @@ def check_subset_behavior(images_dir, masks_dir):
 
     for i in range(3):
         item = subset[i]
-        print(f"Item {i} types: {type(item[0])}, {type(item[1])}")
+        #print(f"Item {i} types: {type(item[0])}, {type(item[1])}")
 
 
 def test_dataloader(images_dir, masks_dir):
@@ -170,8 +170,8 @@ def test_dataloader(images_dir, masks_dir):
     loader = DataLoader(dataset, batch_size=2)
 
     for batch in loader:
-        print(f"Batch image sizes: {batch[0].shape}")
-        print(f"Batch mask sizes: {batch[1].shape}")
+        #print(f"Batch image sizes: {batch[0].shape}")
+        #print(f"Batch mask sizes: {batch[1].shape}")
         break  # Проверяем только первый батч
 
 
@@ -205,7 +205,7 @@ def test_sizes(images_dir, masks_dir):
     dataset = PHDataset(images_dir, masks_dir, preprocess=True)
     for i in range(3):
         img, mask = dataset[i]
-        print(f"Item {i} sizes - image: {img.shape}, mask: {mask.shape}")
+        #print(f"Item {i} sizes - image: {img.shape}, mask: {mask.shape}")
         assert img.shape[:2] == mask.shape[:2], "Size mismatch"
 
 
@@ -227,8 +227,8 @@ if __name__ == "__main__":
         preprocess=True,
         crop_borders=False
     )
-    print(f"\nOriginal test:")
-    print(f"Train size: {len(train_ds)}, Val size: {len(val_ds)}, Test size: {len(test_ds)}")
+    #print(f"\nOriginal test:")
+    #print(f"Train size: {len(train_ds)}, Val size: {len(val_ds)}, Test size: {len(test_ds)}")
     img, mask = train_ds[0]
-    print(f"Image shape: {img.shape}, Mask shape: {mask.shape}")
-    print(f"Mask unique values: {torch.unique(mask)}")
+    #print(f"Image shape: {img.shape}, Mask shape: {mask.shape}")
+    #print(f"Mask unique values: {torch.unique(mask)}")

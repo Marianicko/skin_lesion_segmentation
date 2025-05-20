@@ -183,6 +183,8 @@ def train():
         val_loss = 0.0
         with torch.no_grad():
             for images, masks in val_loader:
+                images = images.to(device)
+                masks = masks.to(device)
                 outputs = model(images)
                 val_loss += loss_fn(outputs, masks.long()).item()
                 metric_fn.update(outputs, masks.long())
