@@ -221,5 +221,5 @@ def evaluate(model, test_loader):
 
 
 if __name__ == "__main__":
-
+    print("actual version--train")
     train()
