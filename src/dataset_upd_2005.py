@@ -12,7 +12,7 @@ import numpy as np
 from preprocess_spec_2005 import DermatologyPreprocessor
 
 IMAGE_SIZE = 512
-
+'''
 # Определяем трансформации для train/val
 train_transforms = A.Compose([
     # 1. Сначала приводим к общему размеру (сохраняя пропорции)
@@ -40,7 +40,11 @@ train_transforms = A.Compose([
     ),
     ToTensorV2(),
 ], is_check_shapes=False)  # Явно отключаем проверку
-
+'''
+train_transforms = A.Compose([
+    A.Rotate(limit=45, p=1.0),  # Всегда поворачиваем на случайный угол до 45°
+    ToTensorV2(),
+])
 
 val_transforms = A.Compose([
     A.Resize(height=IMAGE_SIZE, width=IMAGE_SIZE, p=1.0),
