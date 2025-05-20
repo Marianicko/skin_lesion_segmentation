@@ -85,10 +85,10 @@ class PHDataset(Dataset):
         if self.transform and apply_transform:
             transformed = self.transform(
                 image=image,
-                mask=mask.astype(np.float32)  # Для совместимости с albumentations
+                mask=mask
             )
             image, mask = transformed["image"], transformed["mask"]
-            mask = (mask > 0.5).astype(np.uint8)  # Возвращаем бинарность
+            mask = (mask > 0.5).where(mask > 0.5, 1, 0).long()  # Возвращаем бинарность
 
         return image, mask
 
