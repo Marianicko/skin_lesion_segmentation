@@ -136,7 +136,7 @@ def train():
     # Метрики и loss
     class_weights = torch.tensor([0.3, 0.7]).to(accelerator.device)
     loss_fn = CrossEntropyDiceLoss(weight=class_weights, ignore_index=-1).to(accelerator.device)
-    metric_fn = MeanIoU(classes_num=Config.NUM_CLASSES, ignore_index=-1)
+    metric_fn = MeanIoU(classes_num=Config.NUM_CLASSES, ignore_index=-1).to(accelerator.device)
 
     # Подготовка для Accelerator (оставить без изменений)
     model, optimizer, train_loader, val_loader = accelerator.prepare(
