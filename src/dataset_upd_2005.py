@@ -42,9 +42,20 @@ train_transforms = A.Compose([
 ], is_check_shapes=False)  # Явно отключаем проверку
 '''
 train_transforms = A.Compose([
-    A.Rotate(limit=45, p=1.0),  # Всегда поворачиваем на случайный угол до 45°
+    # 1. Сначала ресайз до IMAGE_SIZE с сохранением пропорций
+    A.LongestMaxSize(max_size=IMAGE_SIZE, p=1.0, interpolation=cv2.INTER_LINEAR),
+
+    # 2. Аугментации (без сложных комбинаций)
+    A.HorizontalFlip(p=0.5),
+    A.VerticalFlip(p=0.5),
+    A.Rotate(limit=15, p=0.5),  # Упрощённый вариант вместо Affine
+
+    # 3. Обрезка до финального размера
+    A.RandomCrop(height=IMAGE_SIZE, width=IMAGE_SIZE, p=1.0),
+
+    # 4. Нормализация и преобразование в тензор
     ToTensorV2(),
-])
+], is_check_shapes=False)
 
 val_transforms = A.Compose([
     A.Resize(height=IMAGE_SIZE, width=IMAGE_SIZE, p=1.0),
