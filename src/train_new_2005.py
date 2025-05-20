@@ -141,10 +141,11 @@ def train():
     metric_fn = MeanIoU(classes_num=Config.NUM_CLASSES, ignore_index=-1).to(device)
 
     # Подготовка для Accelerator (оставить без изменений)
-    model, optimizer, train_loader, val_loader, metric_fn = accelerator.prepare(
-        model, optimizer, train_loader, val_loader, metric_fn
+    model, optimizer, train_loader, val_loader = accelerator.prepare(
+        model, optimizer, train_loader, val_loader
     )
 
+    #metric_fn = metric_fn.to(device)
     # Чекпоинтер (оставить без изменений)
     checkpointer = CheckpointSaver(
         accelerator=accelerator,
