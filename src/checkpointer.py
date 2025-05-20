@@ -66,6 +66,10 @@ class CheckpointSaver:
         save_path = self._save_checkpoint(
             model=self._model, epoch=epoch, save_name_prefix=save_name_prefix
         )
+
+        print(f"Попытка сохранения чекпоинта. Метрика: {metric_val}, epoch: {epoch}")
+        print(f"Путь для сохранения: {save_path}")
+
         self._storage.append(
             Checkpoint(metric_val=metric_val, epoch=epoch, save_path=save_path)
         )
