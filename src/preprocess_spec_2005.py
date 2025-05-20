@@ -135,6 +135,8 @@ class DermatologyPreprocessor:
             # 4. Нормализация
             image = image.astype(np.float32) / 255.0
 
+            if mask is not None:
+                mask = mask.astype(np.uint8)  # Гарантируем целочисленный тип
             '''
             if mask is not None and image.shape[:2] != mask.shape[:2]:
                 raise ValueError(

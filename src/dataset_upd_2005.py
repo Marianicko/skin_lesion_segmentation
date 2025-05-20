@@ -71,19 +71,19 @@ class PHDataset(Dataset):
         else:
             image = image.astype(np.float32) / 255.0
 
-        # Проверка размеров
-        if image.shape[:2] != mask.shape[:2]:
-            raise ValueError(f"Размеры не совпадают: image {image.shape}, mask {mask.shape}")
+        # Проверка размеров (только для numpy массивов)
+        if isinstance(image, np.ndarray) and isinstance(mask, np.ndarray):
+            if image.shape[:2] != mask.shape[:2]:
+                raise ValueError(f"Размеры не совпадают: image {image.shape}, mask {mask.shape}")
 
         # Аугментации
         if self.transform and apply_transform:
-            transformed = self.transform(
-                image=image,
-                mask=mask  # Убираем .astype(np.float32), так как albumentations сам конвертирует
-            )
+            transformed = self.transform(image=image, mask=mask)
             image, mask = transformed["image"], transformed["mask"]
-            # Для тензора используем torch.where вместо astype
-            mask = torch.where(mask > 0.5, 1, 0).long()  # Бинаризация для тензора
+
+            # Для тензора используем torch.where для бинаризации
+            if torch.is_tensor(mask):
+                mask = (mask > 0.5).long()  # Более эффективный способ бинаризации тензора
 
         return image, mask
 
