@@ -98,11 +98,12 @@ class HairRemovalSalido:
 
 
 class DermatologyPreprocessor:
-    def __init__(self, debug=False, crop_borders=True):
+    def __init__(self, debug=False, crop_borders=True, target_size=(512, 512)):
         self.hair_removal = HairRemovalSalido()
         self.clahe_params = {'clipLimit': 2.0, 'tileGridSize': (8, 8)}
         self.debug = debug
         self.crop_borders = crop_borders
+        self.target_size = target_size
 
     def __call__(self, image: np.ndarray, mask: Optional[np.ndarray] = None) -> Tuple[np.ndarray, Optional[np.ndarray]]:
         try:
@@ -144,6 +145,11 @@ class DermatologyPreprocessor:
                     f"image {image.shape[:2]} vs mask {mask.shape[:2]}"
                 )
             '''
+
+            if self.target_size:
+                image = cv2.resize(image, self.target_size, interpolation=cv2.INTER_LINEAR)
+                if mask is not None:
+                    mask = cv2.resize(mask, self.target_size, interpolation=cv2.INTER_NEAREST)
 
             return image, mask
 
