@@ -192,7 +192,7 @@ def train():
 
             val_iou = metric_fn.compute().item()
             if epoch % 2 == 0:  # Логируем каждые 2 эпохи (5), чтобы не перегружать
-                fig = visualize_sample(val_dataset, f"Val Sample Epoch {epoch}", preprocess=True)
+                fig = visualize_sample(val_dataset, f"Val Sample Epoch {epoch}", preprocess_flag=True)
                 writer.add_figure("Validation Samples", fig, epoch)
                 plt.close(fig)
 
