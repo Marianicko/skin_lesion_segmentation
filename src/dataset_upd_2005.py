@@ -40,7 +40,6 @@ train_transforms = A.Compose([
     ),
     ToTensorV2(),
 ], is_check_shapes=False)  # Явно отключаем проверку
-'''
 train_transforms = A.Compose([
     # 1. Сначала ресайз до IMAGE_SIZE с сохранением пропорций
     A.LongestMaxSize(max_size=IMAGE_SIZE, p=1.0, interpolation=cv2.INTER_LINEAR),
@@ -54,6 +53,15 @@ train_transforms = A.Compose([
     A.RandomCrop(height=IMAGE_SIZE, width=IMAGE_SIZE, p=1.0),
 
     # 4. Нормализация и преобразование в тензор
+    ToTensorV2(),
+], is_check_shapes=False)
+'''
+
+train_transforms = A.Compose([
+    A.Resize(IMAGE_SIZE, IMAGE_SIZE, p=1.0),  # Фиксированный размер
+    A.HorizontalFlip(p=0.5),
+    A.VerticalFlip(p=0.5),
+    A.Rotate(limit=15, p=0.5),
     ToTensorV2(),
 ], is_check_shapes=False)
 
@@ -77,6 +85,35 @@ class PHDataset(Dataset):
     def __len__(self):
         return len(self.images)
 
+    def __getitem__(self, idx, apply_transform=True):
+        # Загрузка изображения и маски
+        image = cv2.cvtColor(cv2.imread(self.images[idx]), cv2.COLOR_BGR2RGB)
+        mask = cv2.imread(self.masks[idx], cv2.IMREAD_GRAYSCALE)
+        mask = (mask == 255).astype(np.uint8) * 1
+
+        # Препроцессинг (если нужен)
+        if self.preprocess:
+            image, mask = self.preprocessor(image, mask)
+        else:
+            image = image.astype(np.float32) / 255.0
+
+        # Проверка размеров
+        if image.shape[:2] != mask.shape[:2]:
+            raise ValueError(f"Размеры не совпадают: image {image.shape}, mask {mask.shape}")
+
+        # Аугментации
+        if self.transform and apply_transform:
+            transformed = self.transform(image=image, mask=mask)
+            image, mask = transformed["image"], transformed["mask"]
+
+            # Явное копирование и преобразование маски
+            if torch.is_tensor(mask):
+                mask = mask.clone().detach().long()  # Важно: копируем и меняем тип
+                mask = (mask > 0.5).long()
+
+        return image, mask
+
+    '''
     def __getitem__(self, idx, apply_transform=True):
         #print(f"\n--- Processing item {idx} ---")
 
@@ -122,6 +159,7 @@ class PHDataset(Dataset):
 
         #print(f"Final types - image: {type(image)}, mask: {type(mask)}")
         return image, mask
+        '''
 
 
 def get_datasets(images_dir, masks_dir, val_ratio=0.2, test_ratio=0.1, seed=42, preprocess=False, crop_borders=True):
