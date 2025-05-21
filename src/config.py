@@ -24,4 +24,6 @@ class Config:
     IMAGES_DIR = "./PH2_Dataset/trainx"
     MASKS_DIR = "./PH2_Dataset/trainy"
 
+    PREPROCESS_FLAG = True
+
 config = Config()

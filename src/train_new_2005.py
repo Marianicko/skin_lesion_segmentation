@@ -101,7 +101,7 @@ def train():
         masks_dir=Config.MASKS_DIR,
         val_ratio=0.15,
         test_ratio=0.05,
-        preprocess=True,
+        preprocess=Config.PREPROCESS_FLAG,
         crop_borders=True
     )
 
@@ -114,7 +114,7 @@ def train():
 
     # Визуализация (оставить без изменений)
     print("\nTrain Sample:")
-    visualize_sample(train_dataset, "Train Sample", preprocess_flag=True, save_to_disk=True)
+    visualize_sample(train_dataset, "Train Sample", preprocess_flag=Config.PREPROCESS_FLAG, save_to_disk=True)
 
     # DataLoader с улучшенными параметрами
     train_loader = DataLoader(
@@ -157,8 +157,8 @@ def train():
 
     # Проверка аугментаций
     sample_img, sample_mask = train_dataset[0]
-    print("Уникальные значения в маске после трансформаций:", torch.unique(sample_mask))
-    visualize_sample(train_dataset, "Augmented Sample", preprocess_flag=False)
+    #print("Уникальные значения в маске после трансформаций:", torch.unique(sample_mask))
+    visualize_sample(train_dataset, "Augmented Sample", preprocess_flag=Config.PREPROCESS_FLAG)
 
     # Цикл обучения с обработкой ошибок
     for epoch in range(Config.EPOCHS):
@@ -196,8 +196,8 @@ def train():
                 metric_fn.update(outputs, masks.long())
 
             val_iou = metric_fn.compute().item()
-            if epoch % 2 == 0:  # Логируем каждые 2 эпохи (5), чтобы не перегружать
-                fig = visualize_sample(val_dataset, f"Val Sample Epoch {epoch}", preprocess_flag=True)
+            if epoch % 5 == 0:  # Логируем каждые 5 эпох, чтобы не перегружать
+                fig = visualize_sample(val_dataset, f"Val Sample Epoch {epoch}", preprocess_flag=Config.PREPROCESS_FLAG)
                 writer.add_figure("Validation Samples", fig, epoch)
                 plt.close(fig)
 
