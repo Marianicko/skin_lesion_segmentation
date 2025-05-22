@@ -81,10 +81,6 @@ class PHDataset(Dataset):
         assert len(self.images) == len(self.masks), "Кол-во изображений и масок не совпадает"
         self.target_size = target_size
 
-        # Создаем папку для кеша при инициализации
-        if self.preprocess:
-            os.makedirs("preprocessed", exist_ok=True)
-
 
     def __len__(self):
         return len(self.images)
@@ -97,16 +93,7 @@ class PHDataset(Dataset):
 
         # Препроцессинг (если нужен)
         if self.preprocess:
-            cache_name = os.path.basename(self.images[idx]).replace('.bmp', '.pt')
-            cache_path = os.path.join("preprocessed", cache_name)
-
-            if os.path.exists(cache_path):
-                # Загружаем из кеша
-                image, mask = torch.load(cache_path)
-            else:
-                # Обрабатываем и сохраняем в кеш
-                image, mask = self.preprocessor(image, mask)
-                torch.save((image, mask), cache_path)
+            image, mask = self.preprocessor(image, mask)
         else:
             image = image.astype(np.float32) / 255.0
 
