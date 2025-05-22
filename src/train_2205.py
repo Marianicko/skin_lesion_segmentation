@@ -195,7 +195,9 @@ def train():
             writer.add_scalar("IoU/val", val_iou, epoch)
             writer.add_scalar("Best_IoU", best_iou, epoch)  # NEW
             writer.add_scalar("Best_Loss", best_loss, epoch)  # NEW
-
+            writer.add_scalar("Loss_train", epoch_train_loss, epoch)
+            writer.add_scalar("Loss_val", val_loss, epoch)
+            
             # Визуализация каждые 5 эпох
             if epoch % 5 == 0:
                 fig = visualize_sample(
