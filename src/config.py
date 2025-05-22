@@ -7,10 +7,12 @@ class Config:
     BATCH_SIZE = 4    # Для маленького датасета PH2 можно 4-8 (в датасете 200 изобр-й)
     NUM_WORKERS = 2   # Параллельная загрузка данных
     NUM_CLASSES = 2   # Фон + невус
+    PREPROCESS_FLAG = True  # Включение предобработки
 
     # Модель
     IN_CHANNELS = 3   # RGB
     BILINEAR = True   # Билинейный апсемплинг
+    CLASS_WEIGHTS = [0.5, 0.5]
 
     # Обучение
     DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
@@ -24,6 +26,6 @@ class Config:
     IMAGES_DIR = "./PH2_Dataset/trainx"
     MASKS_DIR = "./PH2_Dataset/trainy"
 
-    PREPROCESS_FLAG = True
+
 
 config = Config()
