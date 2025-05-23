@@ -4,7 +4,7 @@ import cv2
 import torch
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
-from dataset_upd_2005 import get_datasets
+from dataset_upd_2205 import get_datasets
 from model import SegmentationModel
 from config import Config
 from tqdm import tqdm
@@ -76,6 +76,14 @@ def visualize_sample(dataset, title="Sample", preprocess_flag=False, save_to_dis
 def train():
     seed_everything(42)
 
+    CHECKPOINTS_DIR = getattr(Config, "CHECKPOINTS_DIR", None)
+    LOGS_DIR = getattr(Config, "LOGS_DIR", None)
+
+    if IN_COLAB:
+        drive.mount('/content/drive')
+
+    os.makedirs(CHECKPOINTS_DIR, exist_ok=True)
+    os.makedirs(LOGS_DIR, exist_ok=True)
     # Настройка путей для чекпоинтов
     if IN_COLAB:
         drive.mount('/content/drive')
@@ -91,7 +99,7 @@ def train():
         cpu=False,
         mixed_precision="fp16" if Config.DEVICE == "cuda" else "no"
     )
-    writer = SummaryWriter(Config.LOGS_DIR)
+    writer = SummaryWriter(LOGS_DIR)
 
     # Инициализация модели
     model = SegmentationModel()
@@ -212,6 +220,18 @@ def train():
     writer.close()
     print("Обучение завершено!")
     return accelerator.unwrap_model(model)
+
+def evaluate(model, test_loader):
+    model.eval()
+    device = next(model.parameters()).device
+    metric_fn = MeanIoU(classes_num=Config.NUM_CLASSES, ignore_index=-1).to(device)
+    with torch.no_grad():
+        for images, masks in test_loader:
+            images = images.to(device)
+            masks = masks.to(device)
+            outputs = model(images)
+            metric_fn.update(outputs, masks.long())
+    return metric_fn.compute().item()
 
 
 if __name__ == "__main__":
