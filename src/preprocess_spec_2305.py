@@ -100,6 +100,7 @@ class HairRemovalSalido:
 
 class DermatologyPreprocessor:
     def __init__(self, debug=False, crop_borders=True, target_size=(512, 512)):
+        print("It's okay")
         self.hair_removal = HairRemovalSalido()
         self.clahe_params = {'clipLimit': Config.CLAHE_CLIP_LIMIT, 'tileGridSize': Config.CLAHE_TILE_GRID_SIZE}
         self.debug = debug

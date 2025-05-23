@@ -117,6 +117,7 @@ class PHDataset(Dataset):
 def get_datasets(images_dir, masks_dir, val_ratio=0.2, test_ratio=0.1, seed=42, preprocess=False, crop_borders=True):
     """Разделение данных на train/val/test с корректным применением трансформаций."""
     # Создаём отдельные датасеты с разными трансформациями
+    print("It's okay")
     train_dataset = PHDataset(
         images_dir, masks_dir,
         transform=train_transforms,  # Аугментации для обучения

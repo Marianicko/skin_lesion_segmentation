@@ -4,7 +4,7 @@ import cv2
 import torch
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
-from dataset_upd_2005 import get_datasets
+from dataset_upd_2305 import get_datasets
 from model import SegmentationModel
 from config import Config
 from tqdm import tqdm
