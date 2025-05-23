@@ -9,6 +9,12 @@ class Config:
     NUM_CLASSES = 2   # Фон + невус
     PREPROCESS_FLAG = True  # Включение предобработки
 
+    # Предобработка
+    BOTTOMHAT_KERNEL = (9, 9)
+    THRESHOLD_HAIR_REMOVAL = 10
+    CLAHE_CLIP_LIMIT = 1.0
+    CLAHE_TILE_GRID_SIZE = (16, 16)
+
     # Модель
     IN_CHANNELS = 3   # RGB
     BILINEAR = True   # Билинейный апсемплинг
@@ -25,6 +31,8 @@ class Config:
     LOGS_DIR = "logs"
     IMAGES_DIR = "./PH2_Dataset/trainx"
     MASKS_DIR = "./PH2_Dataset/trainy"
+
+
 
 
 
