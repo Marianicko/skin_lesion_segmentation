@@ -1,10 +1,10 @@
 import os
-import glob
+
 import cv2
 import torch
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
-from dataset_upd_2205 import get_datasets
+from dataset_upd_2005 import get_datasets
 from model import SegmentationModel
 from config import Config
 from tqdm import tqdm
@@ -15,14 +15,6 @@ from accelerate import Accelerator
 from utils import seed_everything
 import matplotlib.pyplot as plt
 import numpy as np
-
-# Проверяем окружение (Colab или нет)
-try:
-    from google.colab import drive
-
-    IN_COLAB = True
-except ImportError:
-    IN_COLAB = False
 
 
 def check_asymmetry(dataset, n_samples=3):
@@ -36,29 +28,41 @@ def check_asymmetry(dataset, n_samples=3):
         ax[1].imshow(mask.squeeze(), cmap='gray')
         ax[1].set_title("Маска")
 
+        # Проверка асимметрии (пример)
         contours, _ = cv2.findContours(mask.numpy().astype(np.uint8), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         if len(contours) > 0:
             (x, y), (w, h), angle = cv2.minAreaRect(contours[0])
             ax[1].text(10, 30, f"Соотношение сторон: {max(w, h) / min(w, h):.2f}",
                        color='red', fontsize=12)
+
         plt.show()
 
 
 def visualize_sample(dataset, title="Sample", preprocess_flag=False, save_to_disk=False):
     original_dataset = dataset.dataset if hasattr(dataset, 'dataset') else dataset
     idx = dataset.indices[0] if hasattr(dataset, 'indices') else 0
+
+    # Получаем сырые данные (без трансформаций)
     image, mask = original_dataset.__getitem__(idx, apply_transform=False)
 
     fig, axes = plt.subplots(1, 3 if not original_dataset.transform else 4, figsize=(18, 5))
+
+    # 1. Исходное/предобработанное изображение
     axes[0].imshow(image)
     axes[0].set_title(f"1. {'Предобработанное' if preprocess_flag else 'Сырое'} изображение")
+
+    # 2. Маска
     axes[1].imshow(mask.squeeze(), cmap='gray')
     axes[1].set_title("2. Маска")
 
+    # 3. Если есть трансформы - аугментированное изображение
     if original_dataset.transform:
         augmented = original_dataset.transform(image=image, mask=mask)
-        axes[2].imshow(augmented["image"].permute(1, 2, 0).numpy())
+        aug_img = augmented["image"].permute(1, 2, 0).numpy()
+        axes[2].imshow(aug_img)
         axes[2].set_title("3. После аугментаций")
+
+        # 4. Аугментированная маска
         axes[3].imshow(augmented["mask"].squeeze(), cmap='gray')
         axes[3].set_title("4. Маска после аугментаций")
 
@@ -68,6 +72,7 @@ def visualize_sample(dataset, title="Sample", preprocess_flag=False, save_to_dis
     if save_to_disk:
         os.makedirs("visualizations", exist_ok=True)
         fig.savefig(f"visualizations/{title.replace(' ', '_')}.png", bbox_inches='tight')
+
     plt.tight_layout()
     plt.show()
     return fig
@@ -75,31 +80,11 @@ def visualize_sample(dataset, title="Sample", preprocess_flag=False, save_to_dis
 
 def train():
     seed_everything(42)
-
-    CHECKPOINTS_DIR = getattr(Config, "CHECKPOINTS_DIR", None)
-    LOGS_DIR = getattr(Config, "LOGS_DIR", None)
-
-    if IN_COLAB:
-        drive.mount('/content/drive')
-
-    os.makedirs(CHECKPOINTS_DIR, exist_ok=True)
-    os.makedirs(LOGS_DIR, exist_ok=True)
-    # Настройка путей для чекпоинтов
-    if IN_COLAB:
-        drive.mount('/content/drive')
-        CHECKPOINTS_DIR = '/content/drive/MyDrive/colab_checkpoints'
-        print("✓ Google Drive подключен")
-    else:
-        CHECKPOINTS_DIR = './local_checkpoints'
-        print("→ Локальное сохранение чекпоинтов")
-
-    os.makedirs(CHECKPOINTS_DIR, exist_ok=True)
-
     accelerator = Accelerator(
         cpu=False,
         mixed_precision="fp16" if Config.DEVICE == "cuda" else "no"
     )
-    writer = SummaryWriter(LOGS_DIR)
+    writer = SummaryWriter(Config.LOGS_DIR)
 
     # Модель и оптимизатор
     model = SegmentationModel()
@@ -246,7 +231,6 @@ def train():
     print("Training completed!")
     return accelerator.unwrap_model(model)
 
-
 def evaluate(model, test_loader):
     model.eval()
     device = next(model.parameters()).device
@@ -261,4 +245,5 @@ def evaluate(model, test_loader):
 
 
 if __name__ == "__main__":
-    trained_model = train()
+    print("actual version--train")
+    train()
