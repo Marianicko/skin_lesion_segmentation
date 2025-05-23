@@ -96,6 +96,27 @@ class CheckpointSaver:
             self._storage[0].epoch + 1,
         )
 
+    def _save_checkpoint(self, model: nn.Module, epoch: int, save_name_prefix: str) -> Path:
+        save_path = pjoin(self.save_dir, f"{save_name_prefix}.pt")
+        self._accelerator.wait_for_everyone()
+        unwrapped_model = self._accelerator.unwrap_model(model)
+
+        # Получаем состояние оптимизатора
+        optimizer_state = self._accelerator.optimizer_state_dict(self._optimizer) if hasattr(self,
+                                                                                             '_optimizer') else None
+
+        self._accelerator.save(
+            obj={
+                "epoch": epoch,
+                "model_state_dict": unwrapped_model.state_dict(),
+                "optimizer_state_dict": optimizer_state,
+                "metric": self._storage[0].metric_val if self._storage else 0.0,
+                "loss": self._storage[0].loss_val if self._storage else 0.0,
+            },
+            f=save_path,
+        )
+        return Path(save_path)
+    '''
     def _save_checkpoint(
             self, model: nn.Module, epoch: int, save_name_prefix: str
     ) -> Path:
@@ -112,3 +133,4 @@ class CheckpointSaver:
             f=save_path,
         )
         return Path(save_path)
+    '''
