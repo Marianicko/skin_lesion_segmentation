@@ -1,6 +1,6 @@
 import torch.nn as nn
 from config import Config
-from unet import UNet
+from unet_2405 import UNet
 
 
 class SegmentationModel(nn.Module):

@@ -4,7 +4,7 @@ import cv2
 import torch
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
-from dataset_upd_2305 import get_datasets
+from dataset_upd_2405 import get_datasets
 from model import SegmentationModel
 from config import Config
 from tqdm import tqdm
@@ -94,12 +94,20 @@ def train():
         weight_decay=Config.WEIGHT_DECAY
     )
 
+    scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
+        optimizer,
+        mode='max',  # Следим за ростом IoU
+        factor=0.5,  # Уменьшаем LR в 2 раза
+        patience=5,  # Количество эпох без улучшений
+        min_lr=1e-5  # Минимальный LR
+    )
+
     # Данные
     train_dataset, val_dataset, test_dataset = get_datasets(
         images_dir=Config.IMAGES_DIR,
         masks_dir=Config.MASKS_DIR,
-        val_ratio=0.15,
-        test_ratio=0.05,
+        val_ratio=Config.VAL_RATIO,
+        test_ratio=Config.TEST_RATIO,
         preprocess=Config.PREPROCESS_FLAG,
         crop_borders=True
     )
@@ -127,11 +135,11 @@ def train():
     metric_fn = MeanIoU(classes_num=Config.NUM_CLASSES, ignore_index=-1).to(device)
 
     # Подготовка для Accelerator
-    model, optimizer, train_loader, val_loader = accelerator.prepare(
-        model, optimizer, train_loader, val_loader
+    model, optimizer, train_loader, val_loader, scheduler = accelerator.prepare(
+        model, optimizer, train_loader, val_loader, scheduler
     )
 
-    # Чекпоинтер с поддержкой loss (NEW)
+    # Чекпоинтер с поддержкой loss (  )
     checkpointer = CheckpointSaver(
         accelerator=accelerator,
         model=model,
@@ -145,8 +153,8 @@ def train():
     visualize_sample(val_dataset, "Val Sample", preprocess_flag=Config.PREPROCESS_FLAG)
 
     # Цикл обучения
-    best_iou = 0.0  # NEW: отслеживаем лучший IoU
-    best_loss = float('inf')  # NEW: отслеживаем лучший loss
+    best_iou = 0.0  #  отслеживаем лучший IoU
+    best_loss = float('inf')  #  отслеживаем лучший loss
 
     for epoch in range(Config.EPOCHS):
         model.train()
@@ -177,16 +185,19 @@ def train():
                 metric_fn.update(outputs, masks.long())
             train_iou = metric_fn.compute().item()
             val_iou = metric_fn.compute().item()
-            val_loss /= len(val_loader)  # NEW: средний loss на валидации
-            epoch_train_loss /= len(train_loader)  # NEW: средний train loss
+            val_loss /= len(val_loader)  #  средний loss на валидации
+            epoch_train_loss /= len(train_loader)  #  средний train loss
 
-            # Обновляем лучшие метрики (NEW)
+            scheduler.step(val_iou)  # Обновление LR на основе IoU
+            current_lr = optimizer.param_groups[0]['lr']
+
+            # Обновляем лучшие метрики (  )
             if val_iou > best_iou:
                 best_iou = val_iou
             if val_loss < best_loss:
                 best_loss = val_loss
 
-            # Логирование в TensorBoard (NEW: добавил loss)
+            # Логирование в TensorBoard ( добавил loss)
             writer.add_scalars("Loss", {
                 "train": epoch_train_loss,
                 "val": val_loss
@@ -194,11 +205,11 @@ def train():
 
             writer.add_scalar("IoU/val", val_iou, epoch)
             writer.add_scalar("IoU/train", train_iou, epoch)
-            writer.add_scalar("Best_IoU", best_iou, epoch)  # NEW
-            writer.add_scalar("Best_Loss", best_loss, epoch)  # NEW
+            writer.add_scalar("Best_IoU", best_iou, epoch)  #   
+            writer.add_scalar("Best_Loss", best_loss, epoch)  #   
             writer.add_scalar("Loss_train", epoch_train_loss, epoch)
             writer.add_scalar("Loss_val", val_loss, epoch)
-
+            writer.add_scalar("LR", current_lr, epoch)
             '''
             # Визуализация каждые 5 эпох
             if epoch % 5 == 0:
@@ -215,15 +226,16 @@ def train():
             if epoch == 0:
                 writer.add_graph(model, images)
 
-        # Сохранение чекпоинта (NEW: передаем val_loss)
+        # Сохранение чекпоинта ( передаем val_loss)
         checkpointer.save(metric_val=val_iou, loss_val=val_loss, epoch=epoch)
 
-        # Вывод в консоль (NEW: добавил loss)
+        # Вывод в консоль ( добавил loss)
         print(
             f"Epoch {epoch + 1}/{Config.EPOCHS} | "
             f"Train Loss: {epoch_train_loss:.4f} | "
             f"Val Loss: {val_loss:.4f} | "
             f"Val IoU: {val_iou:.4f} | "
+            f"LR = {current_lr:.2e} | "
             f"Best IoU: {best_iou:.4f} | "
             f"Best Loss: {best_loss:.4f}"
         )

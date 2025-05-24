@@ -25,6 +25,8 @@ class Config:
     LR = 1e-4         # Для Adam
     EPOCHS = 50       # Ранняя остановка может прервать раньше
     WEIGHT_DECAY = 1e-5  # L2-регуляризация
+    VAL_RATIO = 0.1
+    TEST_RATIO = 0.1
 
     # Пути
     CHECKPOINTS_DIR = "checkpoints"
