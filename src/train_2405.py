@@ -169,6 +169,7 @@ def train():
                 accelerator.backward(loss)
                 optimizer.step()
                 epoch_train_loss += loss.item()
+
             except Exception as batch_error:
                 print(f"\nBatch error: {batch_error}")
                 continue
@@ -183,7 +184,7 @@ def train():
                 outputs = model(images)
                 val_loss += loss_fn(outputs, masks.long()).item()
                 metric_fn.update(outputs, masks.long())
-            train_iou = metric_fn.compute().item()
+
             val_iou = metric_fn.compute().item()
             val_loss /= len(val_loader)  #  средний loss на валидации
             epoch_train_loss /= len(train_loader)  #  средний train loss
@@ -204,7 +205,7 @@ def train():
             }, epoch)
 
             writer.add_scalar("IoU/val", val_iou, epoch)
-            writer.add_scalar("IoU/train", train_iou, epoch)
+            #writer.add_scalar("IoU/train", train_iou, epoch)
             writer.add_scalar("Best_IoU", best_iou, epoch)  #   
             writer.add_scalar("Best_Loss", best_loss, epoch)  #   
             writer.add_scalar("Loss_train", epoch_train_loss, epoch)
@@ -233,6 +234,7 @@ def train():
         print(
             f"Epoch {epoch + 1}/{Config.EPOCHS} | "
             f"Train Loss: {epoch_train_loss:.4f} | "
+  #          f"Train IoU: {train_iou:.4f} | "
             f"Val Loss: {val_loss:.4f} | "
             f"Val IoU: {val_iou:.4f} | "
             f"LR = {current_lr:.2e} | "
