@@ -9,9 +9,10 @@ class UNet(nn.Module):
     def __init__(
         self, in_channels: int, out_channels: int, bilinear: bool = True
     ) -> None:
-        super().__init__()  # Инициализируем родительский класс (какой является родительским?)
+        super().__init__()  # Инициализируем родительский класс
 
-        self.bilinear = bilinear    # Билинейный асемплинг == увеличение разрешения (значение нового пикселя - взвешенное среднее 4 ближайших (что понимать по весами пикселей?)
+        self.bilinear = bilinear    # Билинейный апсемплинг == увеличение разрешения
+        # (значение нового пикселя - взвешенное среднее 4 ближайших)
 
         self.in_conv = DoubleConv(in_channels, 64)  # Преобразуем трёхканальное изображение в тензор (64 канала)
 
@@ -96,7 +97,6 @@ class _Down(nn.Module):
 
 
 class _Up(nn.Module):
-    # Шаг декодера
     def __init__(
         self,
         in_channels: int,
@@ -106,7 +106,6 @@ class _Up(nn.Module):
         stride_transp: int = 2,
     ) -> None:
         super().__init__()
-
         if bilinear:
             self.up: nn.Upsample | nn.ConvTranspose2d = nn.Upsample(
                 scale_factor=2, mode="bilinear", align_corners=True
@@ -135,7 +134,7 @@ class _Up(nn.Module):
             x, [diff_w // 2, diff_w - diff_w // 2, diff_h // 2, diff_h - diff_h // 2]
         )
 
-        x = torch.cat([x_skip, x], dim=1)   # Конкатенация по каналам (пусть опишет подробнее)
+        x = torch.cat([x_skip, x], dim=1)   # Конкатенация по каналам
         return self.conv(x) # свёртка
 
 

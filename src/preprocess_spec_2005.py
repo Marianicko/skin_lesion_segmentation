@@ -104,11 +104,9 @@ class DermatologyPreprocessor:
         self.debug = debug
         self.crop_borders = crop_borders
         self.target_size = target_size
-
     def __call__(self, image: np.ndarray, mask: Optional[np.ndarray] = None) -> Tuple[np.ndarray, Optional[np.ndarray]]:
         try:
             original_size = image.shape[:2]
-
             if self.crop_borders:
                 # 1. Обрезка черных границ с синхронной обрезкой маски
                 bbox = get_crop_bbox(image)
@@ -117,40 +115,26 @@ class DermatologyPreprocessor:
                     mask = apply_crop(mask, bbox)
                 if self.debug:
                     logger.info(f"Обрезка границ: {original_size} -> {image.shape[:2]}")
-
             # 2. Удаление волос (не меняет размер)
             image = self.hair_removal(image)
-
             # 3. CLAHE обработка - только для изображ-я
             lab = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
             l, a, b = cv2.split(lab)
             clahe = cv2.createCLAHE(**self.clahe_params)
             l_clahe = clahe.apply(l)
             image = cv2.cvtColor(cv2.merge([l_clahe, a, b]), cv2.COLOR_LAB2BGR)
-
             # INTER_NEAREST - потому что хотим видеть бинарную маску)
             if mask is not None and image.shape[:2] != mask.shape[:2]:
                 h, w = image.shape[:2]
                 mask = cv2.resize(mask, (w, h), interpolation=cv2.INTER_NEAREST)
-
             # 4. Нормализация
             image = image.astype(np.float32) / 255.0
-
             if mask is not None:
                 mask = mask.astype(np.uint8)  # Гарантируем целочисленный тип
-            '''
-            if mask is not None and image.shape[:2] != mask.shape[:2]:
-                raise ValueError(
-                    f"Размеры не совпадают после обработки: "
-                    f"image {image.shape[:2]} vs mask {mask.shape[:2]}"
-                )
-            '''
-
             if self.target_size:
                 image = cv2.resize(image, self.target_size, interpolation=cv2.INTER_LINEAR)
                 if mask is not None:
                     mask = cv2.resize(mask, self.target_size, interpolation=cv2.INTER_NEAREST)
-
             return image, mask
 
         except Exception as e:

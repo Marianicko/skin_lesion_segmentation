@@ -140,13 +140,6 @@ class DermatologyPreprocessor:
 
             if mask is not None:
                 mask = mask.astype(np.uint8)  # Гарантируем целочисленный тип
-            '''
-            if mask is not None and image.shape[:2] != mask.shape[:2]:
-                raise ValueError(
-                    f"Размеры не совпадают после обработки: "
-                    f"image {image.shape[:2]} vs mask {mask.shape[:2]}"
-                )
-            '''
 
             if self.target_size:
                 image = cv2.resize(image, self.target_size, interpolation=cv2.INTER_LINEAR)
